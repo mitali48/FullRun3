@@ -1,46 +1,46 @@
 
-mcProduction = 'Summer23BPix_130x_nAODv12_Full2023BPixv12'
-mcSteps      = 'MCl2loose2023BPixv12__MCCorr2023BPixv12JetScaling__l2tight'
-dataReco     = 'Run2023BPix_Prompt_nAODv12_Full2023BPixv12'
-dataSteps    = 'DATAl2loose2023BPixv12__l2tight'
+# mcProduction = 'Summer23BPix_130x_nAODv12_Full2023BPixv12'
+# mcSteps      = 'MCl2loose2023BPixv12__MCCorr2023BPixv12JetScaling__l2tight'
+# dataReco     = 'Run2023BPix_Prompt_nAODv12_Full2023BPixv12'
+# dataSteps    = 'DATAl2loose2023BPixv12__l2tight'
 
-treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
-limitFiles = -1
+# treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
+# limitFiles = -1
 
 mc = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
-redirector = ""
+# redirector = ""
 
-useXROOTD = False
+# useXROOTD = False
 
-def makeMCDirectory(var=''):
-    _treeBaseDir = treeBaseDir + ''
-    if useXROOTD:
-        _treeBaseDir = redirector + treeBaseDir
-    if var== '':
-        return '/'.join([_treeBaseDir, mcProduction, mcSteps])
-    else:
-        return '/'.join([_treeBaseDir, mcProduction, mcSteps + '__' + var])
+# def makeMCDirectory(var=''):
+#     _treeBaseDir = treeBaseDir + ''
+#     if useXROOTD:
+#         _treeBaseDir = redirector + treeBaseDir
+#     if var== '':
+#         return '/'.join([_treeBaseDir, mcProduction, mcSteps])
+#     else:
+#         return '/'.join([_treeBaseDir, mcProduction, mcSteps + '__' + var])
 
 
 
-mcDirectory = makeMCDirectory()
-#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
-dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
-print(treeBaseDir)
+# mcDirectory = makeMCDirectory()
+# #fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
+# dataDirectory = os.path.join(treeBaseDir, dataReco, dataSteps)
+# print(treeBaseDir)
 
 # merge cuts
-_mergedCuts = []
-for cut in list(cuts.keys()):
-    __cutExpr = ''
-    if type(cuts[cut]) == dict:
-        __cutExpr = cuts[cut]['expr']
-        for cat in list(cuts[cut]['categories'].keys()):
-            _mergedCuts.append(cut + '_' + cat)
-    elif type(cuts[cut]) == str:
-        _mergedCuts.append(cut)
+# _mergedCuts = []
+# for cut in list(cuts.keys()):
+#     __cutExpr = ''
+#     if type(cuts[cut]) == dict:
+#         __cutExpr = cuts[cut]['expr']
+#         for cat in list(cuts[cut]['categories'].keys()):
+#             _mergedCuts.append(cut + '_' + cat)
+#     elif type(cuts[cut]) == str:
+#         _mergedCuts.append(cut)
 
-cuts2j = _mergedCuts
+# cuts2j = _mergedCuts
 
 nuisances = {}
 
@@ -58,34 +58,34 @@ nuisances['lumi_2023'] = {
 
 
 
-##### Electron Efficiency and energy scale
+# ##### Electron Efficiency and energy scale
 
-nuisances['eff_e'] = {
-    'name': 'CMS_eff_e_2023BPix',
-    'kind': 'weight',
-    'type': 'shape',
-    'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc),
-}
+# nuisances['eff_e'] = {
+#     'name': 'CMS_eff_e_2023BPix',
+#     'kind': 'weight',
+#     'type': 'shape',
+#     'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc),
+# }
 
-##### Muon Efficiency and energy scale
+# ##### Muon Efficiency and energy scale
 
-nuisances['eff_m'] = {
-    'name': 'CMS_eff_m_2023BPix',
-    'kind': 'weight',
-    'type': 'shape',
-    'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc),
-}
+# nuisances['eff_m'] = {
+#     'name': 'CMS_eff_m_2023BPix',
+#     'kind': 'weight',
+#     'type': 'shape',
+#     'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc),
+# }
 
-##### Trigger Efficiency
+# ##### Trigger Efficiency
 
-trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
+# trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
 
-nuisances['trigg'] = {
-    'name': 'CMS_eff_hwwtrigger_2023BPix',
-    'kind': 'weight',
-    'type': 'shape',
-    'samples': dict((skey, trig_syst) for skey in mc)
-}
+# nuisances['trigg'] = {
+#     'name': 'CMS_eff_hwwtrigger_2023BPix',
+#     'kind': 'weight',
+#     'type': 'shape',
+#     'samples': dict((skey, trig_syst) for skey in mc)
+# }
 
 ### MC statistical uncertainty
 autoStats = True

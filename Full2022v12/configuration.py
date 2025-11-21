@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "HWW_2022"   
+tag = "WW_2022"   
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -10,7 +10,8 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "../../../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
+#outputFolder = "../../../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
+outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
 #outputFolder = "rootFiles/DY_CR_2024/"
 
 # path to batch folder (used for condor submission)
@@ -20,7 +21,7 @@ batchFolder = "condor"
 configsFolder = "configs"
 
 # luminosity to normalize to (in 1/fb) https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVRun3Analysis
-lumi = 7.9804
+lumi = 8.17
 
 # file with dict of aliases to define
 aliasesFile = "aliases.py"
@@ -43,10 +44,12 @@ plotFile = "plot.py"
 structureFile = "structure.py"
 
 # nuisances file for mkDatacards and for mkShape
-nuisancesFile = "nuisances_ALL.py"
+#nuisancesFile = "nuisances_ALL.py"
+nuisancesFile = "nuisances.py"
 
 # path to folder where to save plots
-plotPath = "Plots/HWW_2022/" + tag
+# plotPath = "Plots/HWW_2022/" + tag
+plotPath = "plots"
 
 # this lines are executed right before the runner on the condor node
 mountEOS = [

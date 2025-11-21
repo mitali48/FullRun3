@@ -38,7 +38,7 @@ groupPlot['Fake']  = {
 
 groupPlot['WW']  = {
     'nameHR'   : 'WW',
-    'isSignal' : 0,
+    'isSignal' : 1,
     'color'    : 851,
     'samples'  : ['WW','ggWW']
 }
@@ -61,7 +61,7 @@ groupPlot['Vg']  = {
 
 groupPlot['ggF']  = {
     'nameHR' : "ggF",
-    'isSignal' : 1,
+    'isSignal' : 0,
     'color'    : 623,
     'colorPlt': "",
     'samples'  : ['ggH_hww']
@@ -69,7 +69,7 @@ groupPlot['ggF']  = {
 
 groupPlot['VBF']  = {
     'nameHR' : "VBF",
-    'isSignal' : 1,
+    'isSignal' : 0,
     'color'    : 600,
     'colorPlt': "",
     'samples'  : ['qqH_hww']
@@ -101,14 +101,14 @@ plot['top']  = {
 
 plot['WW']  = {
     'color'    : 851,
-    'isSignal' : 0,
+    'isSignal' : 1,
     'isData'   : 0,
     'scale'    : 1.0,
 }
 
 plot['ggWW']  = {
     'color'    : 851,
-    'isSignal' : 0,
+    'isSignal' : 1,
     'isData'   : 0,
     'scale'    : 1.0,
 }
@@ -171,11 +171,11 @@ plot['DATA']  = {
     'color'    : 1 ,  
     'isSignal' : 0,
     'isData'   : 1 ,
-    'isBlind'  : 0
+    'isBlind'  : 1
 }
 
 
 # Legend definition
 legend = {}
-legend['lumi'] = 'L =  8.077 fb^{-1}'
+legend['lumi'] = 'L =  8.2 fb^{-1}'
 legend['sqrt'] = '#sqrt{s} = 13.6 TeV'

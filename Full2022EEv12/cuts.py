@@ -3,7 +3,7 @@ cuts = {}
 _tmp = [
     #'Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
     'Lepton_pt[0] > 25.',
-    'Lepton_pt[1] > 20.',
+    'Lepton_pt[1] > 10.',
     '(abs(Lepton_pdgId[1]) == 13 || Lepton_pt[1] > 13.)',
     '(nLepton >= 2 && Alt(Lepton_pt,2, 0) < 10.)',
     'ptll>15',
@@ -58,7 +58,7 @@ cuts['hww2l2v_13TeV_sr'] = {
 }
 '''
 
-cuts['hww2l2v_13TeV_ww']  = {
+cuts['ww2l2v_13pt6TeV_ww']  = {
    'expr' : 'wwcr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
@@ -68,7 +68,7 @@ cuts['hww2l2v_13TeV_ww']  = {
    }
 }
 
-cuts['hww2l2v_13TeV_top']  = { 
+cuts['ww2l2v_13pt6TeV_top']  = { 
    'expr' : 'topcr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
@@ -78,7 +78,7 @@ cuts['hww2l2v_13TeV_top']  = {
    }
 }
 
-cuts['hww2l2v_13TeV_dytt']  = { 
+cuts['ww2l2v_13pt6TeV_dytt']  = { 
    'expr' : 'dycr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : { 
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',

@@ -17,7 +17,7 @@ variables['nvtx'] = {
 
 variables['mll'] = {
     'name': 'mll',    
-    'range' : (60,60,120), 
+    'range' : (60,20,200), 
     'xaxis' : 'm_{ll} [GeV]',
     'fold' : 0
 }
@@ -73,14 +73,14 @@ variables['detall'] = {
 
 variables['pt1']  = { 
     'name': 'Lepton_pt[0]',     
-    'range' : (20,0,100),
+    'range' : (40,0,200),
     'xaxis' : 'p_{T} 1st lep',
     'fold'  : 3                         
 }
 
 variables['pt2']  = {
     'name': 'Lepton_pt[1]',     
-    'range' : (20,0,100),   
+    'range' : (40,0,200),   
     'xaxis' : 'p_{T} 2nd lep',
     'fold'  : 3                         
 }

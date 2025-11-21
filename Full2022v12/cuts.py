@@ -14,6 +14,7 @@ _tmp = [
 
 preselections = ' && '.join(_tmp)
 
+'''
 cuts['Zee']  = {
    'expr' : '(Lepton_pdgId[0] * Lepton_pdgId[1] == -11*11) && mll > 60 && mll < 120',
    'categories' : {
@@ -55,8 +56,9 @@ cuts['hww2l2v_13TeV_sr'] = {
         'Inc': 'mll>12',
     }
 }
+'''
 
-cuts['hww2l2v_13TeV_ww']  = {
+cuts['ww2l2v_13TeV_ww']  = {
    'expr' : 'wwcr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
@@ -66,7 +68,7 @@ cuts['hww2l2v_13TeV_ww']  = {
    }
 }
 
-cuts['hww2l2v_13TeV_top']  = { 
+cuts['ww2l2v_13TeV_top']  = { 
    'expr' : 'topcr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
@@ -76,7 +78,7 @@ cuts['hww2l2v_13TeV_top']  = {
    }
 }
 
-cuts['hww2l2v_13TeV_dytt']  = { 
+cuts['ww2l2v_13TeV_dytt']  = { 
    'expr' : 'dycr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : { 
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',

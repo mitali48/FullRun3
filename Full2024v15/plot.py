@@ -38,7 +38,7 @@ groupPlot['Fake']  = {
 
 groupPlot['WW']  = {
     'nameHR'   : 'WW',
-    'isSignal' : 0,
+    'isSignal' : 1,
     'color'    : 851,
     'samples'  : ['WW','ggWW']
 }
@@ -59,21 +59,21 @@ groupPlot['VVV']  = {
 #    'samples'  : ['Vg', 'VgS']
 #}
 
-groupPlot['ggF']  = {
-    'nameHR' : "ggF",
-    'isSignal' : 1,
-    'color'    : 623,
-    'colorPlt': "",
-    'samples'  : ['ggH_hww']
-}
+# groupPlot['ggF']  = {
+#     'nameHR' : "ggF",
+#     'isSignal' : 0,
+#     'color'    : 623,
+#     'colorPlt': "",
+#     'samples'  : ['ggH_hww']
+# }
 
-groupPlot['VBF']  = {
-    'nameHR' : "VBF",
-    'isSignal' : 1,
-    'color'    : 600,
-    'colorPlt': "",
-    'samples'  : ['qqH_hww']
-}
+# groupPlot['VBF']  = {
+#     'nameHR' : "VBF",
+#     'isSignal' : 0,
+#     'color'    : 600,
+#     'colorPlt': "",
+#     'samples'  : ['qqH_hww']
+# }
 
 plot = {}
 
@@ -148,21 +148,21 @@ plot['VVV']  = {
     'scale'    : 1.0
 }
 
-plot['qqH_hww'] = {
-    'nameHR' : 'qqH',
-    'color': 632+1, # kRed+1 
-    'isSignal' : 0,
-    'isData'   : 0,    
-    'scale'    : 1    #
-}
+# plot['qqH_hww'] = {
+#     'nameHR' : 'qqH',
+#     'color': 632+1, # kRed+1 
+#     'isSignal' : 0,
+#     'isData'   : 0,    
+#     'scale'    : 1    #
+# }
 
-plot['ggH_hww'] = {
-    'nameHR' : 'ggH',
-    'color': 632, # kRed 
-    'isSignal' : 0,
-    'isData'   : 0,    
-    'scale'    : 1    #
-}
+# plot['ggH_hww'] = {
+#     'nameHR' : 'ggH',
+#     'color': 632, # kRed 
+#     'isSignal' : 0,
+#     'isData'   : 0,    
+#     'scale'    : 1    #
+# }
 
 # data
 

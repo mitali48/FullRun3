@@ -9,3 +9,4 @@
 **/condor/
 **/configs/
 **/rootFile
+**/runner.py

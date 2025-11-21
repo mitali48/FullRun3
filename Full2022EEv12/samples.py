@@ -138,7 +138,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
 
 samples['WW'] = {
     'name': files,
-    'weight': mcCommonWeight, #+ "* wwNLL",
+    'weight': mcCommonWeight + "* wwNLL",
     'FilesPerJob': 5
 }
 
@@ -193,6 +193,7 @@ samples['ZZ'] = {
 }
 
 ######## Vg ########
+###WGamma & ZGamma
 files = []
 for label in [
         "ZG",
@@ -248,11 +249,11 @@ samples['VVV'] = {
 ###############  SIGNALS  #################
 ###########################################
 
-# samples['ggH_hww'] = {
-#     'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125'),
-#     'weight': mcCommonWeight + ' * Weight2MINLO * 1092.7640/1073.2567',
-#     'FilesPerJob': 3,
-# }
+samples['ggH_hww'] = {
+    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125'),
+    'weight': mcCommonWeight + ' * Weight2MINLO * 1092.7640/1073.2567',
+    'FilesPerJob': 3,
+}
 
 samples['qqH_hww'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),

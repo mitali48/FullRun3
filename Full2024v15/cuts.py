@@ -3,16 +3,27 @@ cuts = {}
 _tmp = [
     #'Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
     'Lepton_pt[0] > 25.',
-    'Lepton_pt[1] > 10.',
+    'Lepton_pt[1] > 20.',
     '(abs(Lepton_pdgId[1]) == 13 || Lepton_pt[1] > 13.)',
     '(nLepton >= 2 && Alt(Lepton_pt,2, 0) < 10.)',
     'ptll>15',
     'mll > 12',
     '(zeroJet || Sum(CleanJet_pt>30.0)<=3)',
-    'noJetInHorn_pT30'
+    # 'noJetInHorn_pT30'
+    'noJetInHorn_pT15'
+    # 'noJetInHorn'
 ]
 
 preselections = ' && '.join(_tmp)
+
+'''
+cuts['Check'] = {
+    'expr' : '1,'
+    'categories' : {
+        'Inc' : '1'
+    }
+}
+'''
 
 cuts['Zee']  = {
    'expr' : '(Lepton_pdgId[0] * Lepton_pdgId[1] == -11*11) && mll > 60 && mll < 120',
@@ -34,7 +45,7 @@ cuts['Zmm']  = {
     }
 }
 
-cuts['hww2l2v_13TeV_ss'] = {
+cuts['hww2l2v_13pt6TeV_ss'] = {
     'expr': 'bVeto && mll>35 && mpmet<30 && Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13',
     'categories' : {
         'Inc': 'mll>12',
@@ -44,7 +55,8 @@ cuts['hww2l2v_13TeV_ss'] = {
     }
 }
 
-cuts['hww2l2v_13TeV_sr'] = {
+'''
+cuts['ww2l2v_13TeV_hww'] = {
     'expr': 'sr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
     'categories' : {
         '0j_pt2gt20' : 'Alt(CleanJet_pt,0, 0.0)<30.0 && Lepton_pt[1]>=20',
@@ -56,7 +68,7 @@ cuts['hww2l2v_13TeV_sr'] = {
     }
 }
 
-cuts['hww2l2v_13TeV_ww']  = {
+cuts['ww2l2v_13pt6TeV_sr']  = {
    'expr' : 'wwcr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
@@ -65,8 +77,9 @@ cuts['hww2l2v_13TeV_ww']  = {
        'Inc': 'mll>12',
    }
 }
+'''
 
-cuts['hww2l2v_13TeV_top']  = { 
+cuts['ww2l2v_13pt6TeV_top']  = { 
    'expr' : 'topcr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
@@ -76,7 +89,7 @@ cuts['hww2l2v_13TeV_top']  = {
    }
 }
 
-cuts['hww2l2v_13TeV_dytt']  = { 
+cuts['ww2l2v_13pt6TeV_dytt']  = { 
    'expr' : 'dycr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : { 
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',

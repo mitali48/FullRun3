@@ -155,7 +155,7 @@ aliases['nllW_Qdown'] = {
 aliases['Weight2MINLO'] = {
     'linesToProcess': ['ROOT.gSystem.Load("/afs/cern.ch/user/m/misharma/private/Latinos/HWWRUn3/PlotsConfigurationsRun3/WW_Run3/MyPlotsConfiguration/extended/weight2MINLO_cc.so")'],
     'class': 'Weight2MINLO',
-    'args': '"NNLOPS_reweight.root", HTXS_njets30, HTXS_Higgs_pt',
+    'args': '"/afs/cern.ch/user/m/misharma/private/Latinos/HWWRUn3/PlotsConfigurationsRun3/WW_Run3/MyPlotsConfiguration/extended/NNLOPS_reweight.root", HTXS_njets30, HTXS_Higgs_pt',
     'samples': ['ggH_hww']
 }
 
@@ -237,7 +237,7 @@ btagging_SFs = {
 # Algorithm and WP selection
 bAlgo = 'RobustParTAK4B' # ['DeepFlavB','RobustParTAK4B','PNetB'] 
 bWP    = 'loose'     # ['loose','medium','tight','xtight','xxtight']
-bSF   = 'deepjet'
+#bSF   = 'deepjet'
 
 # b veto
 aliases['bVeto'] = {

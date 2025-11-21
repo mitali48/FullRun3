@@ -64,13 +64,13 @@ groupPlot['Vg']  = {
     'samples'  : ['Vg', 'VgS']
 }
 
-# groupPlot['ggF']  = {
-#     'nameHR' : "ggF",
-#     'isSignal' : 1,
-#     'color'    : 623,
-#     'colorPlt': "#7a21dd",
-#     'samples'  : ['ggH_hww']
-# }
+groupPlot['ggF']  = {
+    'nameHR' : "ggF",
+    'isSignal' : 1,
+    'color'    : 623,
+    'colorPlt': "#7a21dd",
+    'samples'  : ['ggH_hww']
+}
 
 groupPlot['VBF']  = {
     'nameHR' : "VBF",
@@ -161,13 +161,13 @@ plot['qqH_hww'] = {
     'scale'    : 1    #
 }
 
-# plot['ggH_hww'] = {
-#     'nameHR' : 'ggH',
-#     'color': 632, # kRed 
-#     'isSignal' : 0,
-#     'isData'   : 0,    
-#     'scale'    : 1    #
-# }
+plot['ggH_hww'] = {
+    'nameHR' : 'ggH',
+    'color': 632, # kRed 
+    'isSignal' : 0,
+    'isData'   : 0,    
+    'scale'    : 1    #
+}
 
 # data
 
@@ -176,7 +176,7 @@ plot['DATA']  = {
     'color'    : 1 ,  
     'isSignal' : 0,
     'isData'   : 1 ,
-    'isBlind'  : 0
+    'isBlind'  : 1
 }
 
 

@@ -6,14 +6,14 @@ redirector = ""
 useXROOTD = False
 
 mcProduction = 'Summer24_150x_nAODv15_Full2024v15'
-mcSteps      = 'MCl2loose2024v15__MCCorr2024v15LeptonOnly__l2tight'
+mcSteps      = 'MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight'
 dataReco     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15'
-dataSteps    = 'DATAl2loose2024v15__l2tight'
+dataSteps    = 'DATAl2loose2024v15__sblancof__l2loose'
 
 ##############################################
 ###### Tree base directory for the site ######
 ##############################################
-treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
+treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano/'
 limitFiles = -1
 
 def makeMCDirectory(var=""):
@@ -134,11 +134,12 @@ for label in [
 samples['DY'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 5,
+    'FilesPerJob': 5
 }
 
 ########## Top #########
-files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + nanoGetSampleFiles(mcDirectory, 'ST_t-channel_top') + nanoGetSampleFiles(mcDirectory, 'ST_t-channel_antitop')
+files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + nanoGetSampleFiles(mcDirectory, 'ST_t-channel_top') + nanoGetSampleFiles(mcDirectory, 'ST_t-channel_antitop') + nanoGetSampleFiles(mcDirectory, 'TWminusto2L2Nu') + nanoGetSampleFiles(mcDirectory, 'TbarWplusto2L2Nu')
+# files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + nanoGetSampleFiles(mcDirectory, 'ST_t-channel_top') + nanoGetSampleFiles(mcDirectory, 'ST_t-channel_antitop')
 
 samples['TTTo2L2Nu'] = {
     'name': files,
@@ -146,21 +147,26 @@ samples['TTTo2L2Nu'] = {
     'FilesPerJob': 5
 }
 
+
+###########################################
+###############  SIGNALS  #################
+########################################### 
+
 ########## WW #########
 files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
 
 samples['WW'] = {
     'name': files,
     'weight': mcCommonWeight + "* wwNLL",
-    'FilesPerJob': 5
+    'FilesPerJob': 10
 }
 
 ########## ggWW #########
 files = []
 for label in [
         "GluGlutoContintoWWtoENuENu",
-	"GluGlutoContintoWWtoENuMuNu",
-	"GluGlutoContintoWWtoENuTauNu",
+        "GluGlutoContintoWWtoENuMuNu",
+	    "GluGlutoContintoWWtoENuTauNu",
         "GluGlutoContintoWWtoMuNuENu",
         "GluGlutoContintoWWtoMuNuMuNu",
         "GluGlutoContintoWWtoMuNuTauNu",
@@ -173,7 +179,7 @@ for label in [
 samples['ggWW'] = {
     'name': files,
     'weight': mcCommonWeight + " * KFactor_ggWW * (49.63 / 1000)",
-    'FilesPerJob': 5
+    'FilesPerJob': 10
 }
 
 addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoENuENu", "1.0 / 0.0744")
@@ -192,7 +198,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WZ')
 samples['WZ'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 5
+    'FilesPerJob': 10
 }
 
 ########## ZZ #########
@@ -201,7 +207,7 @@ files = nanoGetSampleFiles(mcDirectory, 'ZZ')
 samples['ZZ'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 5
+    'FilesPerJob': 10
 }
 
 ######## Vg ########
@@ -257,20 +263,20 @@ samples['VVV'] = {
 }
 
 ###########################################
-###############  SIGNALS  #################
+###############  HWW  #################
 ########################################### 
 
-samples['ggH_hww'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125'),
-    'weight': mcCommonWeight,
-    'FilesPerJob': 3,
-}
+# samples['ggH_hww'] = {
+#     'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125'),
+#     'weight': mcCommonWeight,
+#     'FilesPerJob': 3,
+# }
 
-samples['qqH_hww'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
-    'weight': mcCommonWeight,
-    'FilesPerJob': 3,
-}
+# samples['qqH_hww'] = {
+#     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
+#     'weight': mcCommonWeight,
+#     'FilesPerJob': 3,
+# }
 
 ###########################################
 ################## FAKE ###################

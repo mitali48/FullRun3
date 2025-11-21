@@ -27,4 +27,3 @@ cp output.root /afs/cern.ch/user/m/misharma/private/Latinos/HWWRUn3/PlotsConfigu
 # cp output.root /afs/cern.ch/user/m/misharma/private/Latinos/HWWRUn3/PlotsConfigurationsRun3/WW_Run3/rootFiles__ALL__${SAMPLE}.root
 #cp /afs/cern.ch/user/m/misharma/private/Latinos/HWWRUn3/PlotsConfigurationsRun3/WW_Run3/FullRun3/2022/rootFiles/rootFiles__ALL__${SAMPLE}.root
 rm output.root
-

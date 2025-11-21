@@ -13,7 +13,8 @@ dataSteps    = 'DATAl2loose2022v12__sblancof__l2loose'
 ##############################################
 ###### Tree base directory for the site ######
 ##############################################
-treeBaseDir = '/eos/user/s/sblancof/MC/'
+treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano/'
+# treeBaseDir = '/eos/user/s/sblancof/MC/'
 limitFiles = -1
 
 def makeMCDirectory(var=""):
