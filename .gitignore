@@ -1,0 +1,11 @@
+# Ignore compiled object files and executables
+*.d
+*.so
+*.pcm
+*.root
+*.hh
+
+# Ignore logs and build output
+**/condor/
+**/configs/
+**/rootFile
