@@ -7,13 +7,15 @@ useXROOTD = False
 
 mcProduction = 'Summer24_150x_nAODv15_Full2024v15'
 mcSteps      = 'MCl2loose2024v15__MCCorr2024v15__JERFrom23BPix__l2tight'
-dataReco     = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15'
-dataSteps    = 'DATAl2loose2024v15__sblancof__l2loose'
+dataRecoMuon = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_Muon'
+dataRecoEGamma = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_EGamma'
+dataRecoMuonEG = 'Run2024_ReRecoCDE_PromptFGHI_nAODv15_Full2024v15_MuonEG'
+dataSteps      = 'DATAl2loose2024v15__l2loose'
 
 ##############################################
 ###### Tree base directory for the site ######
 ##############################################
-treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/calderon/HWWNano/'
+treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/'
 limitFiles = -1
 
 
@@ -33,11 +35,13 @@ def makeMCDirectory(var=''):
         return '/'.join([_treeBaseDir, mcProduction, mcSteps + '__' + var])
 
 
-
-mcDirectory = makeMCDirectory()
-#fakeDirectory = os.path.join(treeBaseDir, dataReco, fakeSteps)
-dataDirectory = os.path.join(treeBaseDir_data, dataReco, dataSteps)
-fakeDirectory = dataDirectory
+mcDirectory   = makeMCDirectory()
+fakeDirectoryMuon = os.path.join(treeBaseDir, dataRecoMuon, dataSteps)
+dataDirectoryMuon = os.path.join(treeBaseDir, dataRecoMuon, dataSteps)
+fakeDirectoryEGamma = os.path.join(treeBaseDir, dataRecoEGamma, dataSteps)
+dataDirectoryEGamma = os.path.join(treeBaseDir, dataRecoEGamma, dataSteps)
+fakeDirectoryMuonEG = os.path.join(treeBaseDir, dataRecoMuonEG, dataSteps)
+dataDirectoryMuonEG = os.path.join(treeBaseDir, dataRecoMuonEG, dataSteps)
 print(treeBaseDir)
 
 cuts0j = []
@@ -70,8 +74,8 @@ nuisances = {}
 #### Luminosity
 
 # https://twiki.cern.ch/twiki/bin/view/CMS/LumiRecommendationsRun3
-nuisances['lumi_2022'] = {
-    'name'    : 'lumi_2022',
+nuisances['lumi_2024'] = {
+    'name'    : 'lumi_2024',
     'type'    : 'lnN',
     'samples' : dict((skey, '1.014') for skey in mc)
 }
@@ -86,7 +90,7 @@ nuisances['fake_syst'] = {
     },
 }
 nuisances['fake_ele'] = {
-    'name'    : 'CMS_fake_e_2022EE',
+    'name'    : 'CMS_fake_e_2024',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -94,7 +98,7 @@ nuisances['fake_ele'] = {
     }
 }
 nuisances['fake_ele_stat'] = {
-    'name'    : 'CMS_fake_stat_e_2022EE',
+    'name'    : 'CMS_fake_stat_e_2024',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -102,7 +106,7 @@ nuisances['fake_ele_stat'] = {
     }
 }
 nuisances['fake_mu'] = {
-    'name'    : 'CMS_fake_m_2022EE',
+    'name'    : 'CMS_fake_m_2024',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -110,7 +114,7 @@ nuisances['fake_mu'] = {
     }   
 }       
 nuisances['fake_mu_stat'] = {
-    'name'    : 'CMS_fake_stat_m_2022EE',
+    'name'    : 'CMS_fake_stat_m_2024',
     'kind'    : 'weight',
     'type'    : 'shape',
     'samples' : {
@@ -120,6 +124,7 @@ nuisances['fake_mu_stat'] = {
 
 ##### B-tagger
 
+'''
 for flavour in ['bc', 'light']:
     for corr in ['uncorrelated', 'correlated']:
         btag_syst = [f'btagSF{flavour}_up_{corr}/btagSF{flavour}', f'btagSF{flavour}_down_{corr}/btagSF{flavour}']
@@ -134,13 +139,14 @@ for flavour in ['bc', 'light']:
             'type': 'shape',
             'samples': dict((skey, btag_syst) for skey in mc),
         }
+'''
 
 ##### Trigger Scale Factors                                                                                                                                                                                
 
 trig_syst = ['TriggerSFWeight_2l_u/TriggerSFWeight_2l', 'TriggerSFWeight_2l_d/TriggerSFWeight_2l']
 
 nuisances['trigg'] = {
-    'name': 'CMS_eff_hwwtrigger_2022EE',
+    'name': 'CMS_eff_hwwtrigger_2024',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, trig_syst) for skey in mc)
@@ -149,7 +155,7 @@ nuisances['trigg'] = {
 ##### Electron Efficiency and energy scale
 
 nuisances['eff_e'] = {
-    'name': 'CMS_eff_e_2022EE',
+    'name': 'CMS_eff_e_2024',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, ['SFweightEleUp', 'SFweightEleDown']) for skey in mc),
@@ -158,7 +164,7 @@ nuisances['eff_e'] = {
 ##### Muon Efficiency and energy scale
 
 nuisances['eff_m'] = {
-    'name': 'CMS_eff_m_2022EE',
+    'name': 'CMS_eff_m_2024',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, ['SFweightMuUp', 'SFweightMuDown']) for skey in mc),
@@ -167,7 +173,7 @@ nuisances['eff_m'] = {
 #### Lepton scale
 
 nuisances['leppt_scale'] = {
-    'name'       : 'CMS_scale_l_2022EE',
+    'name'       : 'CMS_scale_l_2024',
     'kind'       : 'suffix',
     'type'       : 'shape',
     'mapUp'      : 'leptonScaleup',
@@ -179,7 +185,7 @@ nuisances['leppt_scale'] = {
 }
 
 nuisances['leppt_res'] = {
-    'name'       : 'CMS_resolution_l_2022EE',
+    'name'       : 'CMS_resolution_l_2024',
     'kind'       : 'suffix',
     'type'       : 'shape',
     'mapUp'      : 'leptonResolutionup',
@@ -193,6 +199,7 @@ nuisances['leppt_res'] = {
 
 ##### JES
 
+'''
 jes_systs    = ["Absolute", "Absolute_2022EE", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2022EE", "EC2_2022EE", "RelativeBal", "RelativeSample_2022EE", "HF_2022EE"] # Reduced set of 11 uncertainties
 #jes_systs = ['jesTotal']
 
@@ -237,10 +244,11 @@ nuisances['met'] = {
     'folderDown': makeMCDirectory('unclustEndo_suffix'),
     'AsLnN'     : '0'
 }
+'''
 
 ##### Pileup
 nuisances['PU'] = {
-    'name': 'CMS_pileup_2022EE',
+    'name': 'CMS_pileup_2024',
     'kind': 'weight',
     'type': 'shape',
     'samples': dict((skey, ['puWeightUp/puWeight', 'puWeightDown/puWeight']) for skey in mc),
@@ -252,6 +260,7 @@ nuisances['PU'] = {
 #
 # As suggested by Emmanuelle, split the nuisance parameters as a function of the number of jets; in a similar behavior as it's done with the top QCD scales.
 #
+'''
 
 for ibin in ['0j','1j','2j']:
     nuisances['PS_ISR_'+ibin]  = {
@@ -664,3 +673,4 @@ if autoStats:
         #  nuisance ['includeSignal'] =  Include MC stat nuisances on signal processes (1=True, 0=False)
         'samples': {}
     }
+'''

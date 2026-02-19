@@ -45,7 +45,7 @@ structureFile = "structure.py"
 nuisancesFile = "nuisances.py"
 
 # path to folder where to save plots
-plotPath = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() +  "/www/plots_WW2024/ControlRegionNOhorns_15to50"
+plotPath = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() +  "/www/plots_WW2024/SRplusCRNOhorns_15to50_VarReDef_Blinded"
 #plotPath = "Plots/ControlRegionNOhorns"
 #plotPath = "Plots"
 

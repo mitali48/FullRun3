@@ -10,11 +10,12 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/rootFile/"
+outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/17Feb2026/rootFile/"
 #outputFolder = "../../../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
 #outputFolder = "rootFiles/DY_CR_2024/"
 
 # path to batch folder (used for condor submission)
+# batchFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/" + tag + "/16Feb2026/condor/"
 batchFolder = "condor"
 
 # path to configuration folder (will contain all the compiled configuration files)
@@ -24,16 +25,16 @@ configsFolder = "configs"
 lumi = 109.0
 
 # file with dict of aliases to define
-aliasesFile = "aliases.py"
+aliasesFile = "aliases_paper.py"
 
 # file with dict of variables
 variablesFile = "variables.py"
 
 # file with dict of cuts
-cutsFile = "cuts.py"
+cutsFile = "cuts_paper.py"
 
 # file with dict of samples
-samplesFile = "samples_zmm.py"
+samplesFile = "samples.py"
 
 # file with dict of samples
 plotFile = "plot.py"
@@ -42,10 +43,10 @@ plotFile = "plot.py"
 structureFile = "structure.py"
 
 # nuisances file for mkDatacards and for mkShape
-nuisancesFile = "nuisances.py"
+nuisancesFile = "nuisances_ALL.py"
 
 # path to folder where to save plots
-plotPath = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() +  "/www/test_plotsWW2024/CR_JetInHornRegionOnly" 
+plotPath = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() +  "/www/test_plotsWW2024/Paper2022_nuisances/17Feb2026" 
 #plotPath = "Plots"
 
 # this lines are executed right before the runner on the condor node

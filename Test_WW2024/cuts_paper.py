@@ -3,16 +3,17 @@ cuts = {}
 _tmp = [
     #'Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
     'Lepton_pt[0] > 25.',
-    'Lepton_pt[1] > 20.',
+    'Lepton_pt[1] > 20.', 
     '(abs(Lepton_pdgId[1]) == 13 || Lepton_pt[1] > 13.)',
     '(nLepton >= 2 && Alt(Lepton_pt,2, 0) < 10.)',
-    'ptll>15',
-    'mll > 12',
+    #'ptll>15',
+    #'mll > 12',
     '(zeroJet || Sum(CleanJet_pt>30.0)<=3)',
+    # 'allJetsInHorn_atLeastOne'
+    #'anyJetInHorn' 
     # 'noJetInHorn_pT30'
     #'noJetInHorn_pT15'
     # 'noJetInHorn'
-    'noJetInHorn_pT15to50'
 ]
 
 preselections = ' && '.join(_tmp)
@@ -24,7 +25,6 @@ cuts['Check'] = {
         'Inc' : '1'
     }
 }
-'''
 
 cuts['Zee']  = {
    'expr' : '(Lepton_pdgId[0] * Lepton_pdgId[1] == -11*11) && mll > 60 && mll < 120',
@@ -45,11 +45,12 @@ cuts['Zmm']  = {
         'Inc' : '1',
     }
 }
+'''
 
 cuts['hww2l2v_13pt6TeV_ss'] = {
-    'expr': 'bVeto && mll>35 && mpmet<30 && Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13',
+    'expr': 'bVeto && mll>85  && Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13',
     'categories' : {
-        'Inc': 'mll>12',
+        'Inc': '1',
         '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
         '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
         '2j' : 'Sum(CleanJet_pt>30.0)==2',
@@ -71,23 +72,22 @@ cuts['ww2l2v_13TeV_hww'] = {
 '''
 
 cuts['ww2l2v_13pt6TeV_sr']  = {
-   'expr' : 'wwcr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
+   'expr' : 'sr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
        '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
        '2j' : 'Sum(CleanJet_pt>30.0)==2',
-       'Inc': 'mll>12',
+       'Inc': '1',
    }
 }
 
-
 cuts['ww2l2v_13pt6TeV_top']  = { 
-   'expr' : 'topcr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
+   'expr' : 'topcr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
        '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
        '2j' : 'Sum(CleanJet_pt>30.0)==2',
-       'Inc': 'mll>12',
+       'Inc': '1',
    }
 }
 
@@ -97,6 +97,6 @@ cuts['ww2l2v_13pt6TeV_dytt']  = {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
        '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
        '2j' : 'Sum(CleanJet_pt>30.0)==2',
-       'Inc': 'mll>12',
+       'Inc': '1',
    }
 }

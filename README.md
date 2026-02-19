@@ -17,14 +17,16 @@ Then, we can source the `mkShapesRDF` environment using these commands:
     cd -
 
 ### Compiling the macros 
-The macros are placed in
+
+The macros are placed in `extended` directory. First navigate to the directory:
+
     cd extended
-Compile the necessary files using python
-    python
-    ```python
+
+Compile the necessary files using `python`. Inside the python prompt:
+
     import ROOT
     ROOT.gROOT.ProcessLineSync(".L ggww_kfactor.cc+")
-    ```
+
 
 ### Produce distributions using mkShapesMulti.py in batch mode
 
