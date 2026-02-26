@@ -165,7 +165,6 @@ plot['ggH_hww'] = {
 }
 
 # data
-
 plot['DATA']  = { 
     'nameHR'   : 'Data',
     'color'    : 1 ,  

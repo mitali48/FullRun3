@@ -48,6 +48,17 @@ structure['VBF'] = {
     'isData'   : 0 
 }
 
+structure['ggH_hww'] = {   
+    'isSignal' : 0,
+    'isData'   : 0 
+}
+
+structure['qqH_hww'] = {   
+    'isSignal' : 0,
+    'isData'   : 0 
+}
+
+
 #signal
 
 structure['ggWW'] = {   

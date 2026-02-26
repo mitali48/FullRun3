@@ -45,9 +45,8 @@ cuts['Zmm']  = {
         'Inc' : '1',
     }
 }
-'''
 
-cuts['hww2l2v_13pt6TeV_ss'] = {
+cuts['ww2l2v_ss'] = {
     'expr': 'bVeto && mll>85  && Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13',
     'categories' : {
         'Inc': '1',
@@ -57,8 +56,7 @@ cuts['hww2l2v_13pt6TeV_ss'] = {
     }
 }
 
-'''
-cuts['ww2l2v_13TeV_hww'] = {
+cuts['ww2l2v_hww'] = {
     'expr': 'sr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
     'categories' : {
         '0j_pt2gt20' : 'Alt(CleanJet_pt,0, 0.0)<30.0 && Lepton_pt[1]>=20',
@@ -71,7 +69,7 @@ cuts['ww2l2v_13TeV_hww'] = {
 }
 '''
 
-cuts['ww2l2v_13pt6TeV_sr']  = {
+cuts['ww2l2v_sr']  = {
    'expr' : 'sr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
@@ -81,7 +79,8 @@ cuts['ww2l2v_13pt6TeV_sr']  = {
    }
 }
 
-cuts['ww2l2v_13pt6TeV_top']  = { 
+'''
+cuts['ww2l2v_top']  = { 
    'expr' : 'topcr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
@@ -91,7 +90,7 @@ cuts['ww2l2v_13pt6TeV_top']  = {
    }
 }
 
-cuts['ww2l2v_13pt6TeV_dytt']  = { 
+cuts['ww2l2v_dytt']  = { 
    'expr' : 'dycr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : { 
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
@@ -100,3 +99,4 @@ cuts['ww2l2v_13pt6TeV_dytt']  = {
        'Inc': '1',
    }
 }
+'''
