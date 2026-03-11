@@ -135,7 +135,7 @@ btagSFbc::btagSFbc(TString eff_map, const string year, TString algo_extension = 
     cset_light = CorrectionSet::from_file("/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/Run3-23DSep23-Summer23BPix-NanoAODv12/latest/btagging.json.gz");
   }
   else{
-    home = "/afs/cern.ch/user/m/misharma/private/Latinos/HWWRUn3/mkShapesRDF/mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/" + year;  
+    home = "/eos/user/m/misharma/private/Latinos/HWWRun3/mkShapesRDF/mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/" + year;  
     cset = CorrectionSet::from_file(home + "/btagging.json.gz");
   }
   
@@ -169,11 +169,42 @@ float btagSFbc::getEff(float pt, float eta, int flavour) {
   }
   return eff;
 }
+btagSFlight::btagSFlight(TString eff_map, const std::string year, TString algo_extension = "") {
+    
+    // --- Patch graphics classes first ---
+    //const char* graphicsClasses[] = { "TPaletteAxis", "TCanvas", "TFrame", "TAttBBox2D", "TBox" };
+    //for (auto clsname : graphicsClasses) {
+    //    if (TClass* cl = TClass::GetClass(clsname)) cl->IgnoreTObjectStreamer();
+    //}
 
-btagSFbc::~btagSFbc(){
-  std::cout << "Cleaning up memory" << std::endl;
-  h_bjet_eff->Delete();
-  h_cjet_eff->Delete();
-}
- 
-#endif
+    std::string home = std::string(std::getenv("STARTPATH"));
+    std::string to_replace = "start.sh";
+    size_t start  = home.find(to_replace);
+    size_t stop   = to_replace.length();
+    home.replace(start, stop, "");
+
+    if (year == "2024_Summer24")
+    {
+        cset = CorrectionSet::from_file("/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/" + year + "/latest/btagging.json.gz");
+    }
+
+    TFile *reff = TFile::Open(eff_map, "READ");
+    h_ljet_eff  = (TH2F*)reff->Get("ljet"+algo_extension+"_eff")->Clone();
+    h_ljet_eff->SetDirectory(0);
+    reff->Close();
+    }
+
+    float btagSFlight::getEff(float pt, float eta, int flavour) {
+    int xbin, ybin;
+    float eff;
+    if (flavour == 0) {
+    xbin = h_ljet_eff->GetXaxis()->FindBin(pt);
+    ybin = h_ljet_eff->GetYaxis()->FindBin(eta);
+    eff  = h_ljet_eff->GetBinContent(xbin, ybin);
+    }
+    else {
+    eff   = 1.;
+    }
+    return eff;
+    }
+

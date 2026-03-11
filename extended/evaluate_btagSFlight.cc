@@ -128,7 +128,7 @@ btagSFlight::btagSFlight(TString eff_map, const string year, TString algo_extens
     cset = CorrectionSet::from_file(home + "/btagging_preliminary.json.gz");
     cset_light = CorrectionSet::from_file("/cvmfs/cms-griddata.cern.ch/cat/metadata/BTV/Run3-23DSep23-Summer23BPix-NanoAODv12/latest/btagging.json.gz");
   }else{
-    home = "/afs/cern.ch/user/m/misharma/private/Latinos/HWWRUn3/mkShapesRDF/mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/" + year;
+    home = "/eos/user/m/misharma/private/Latinos/HWWRun3/mkShapesRDF/mkShapesRDF/processor/data/jsonpog-integration/POG/BTV/" + year;
     cset = CorrectionSet::from_file(home + "/btagging.json.gz");
   }
 
