@@ -21,9 +21,9 @@ mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
 # LepSF3l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
 
-# LepSF2l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoTight_HWW_tthmva_67
+# LepSF2l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoLoose_HWW_tthmva_HWW
 eleWP = 'cutBased_LooseID_tthMVA_Run3'
-muWP  = 'cut_TightID_pfIsoTight_HWW_tthmva_67'
+muWP  = 'cut_TightID_pfIsoLoose_HWW_PNet'
 
 aliases['LepWPCut'] = {
     'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP,
@@ -107,10 +107,10 @@ aliases['fakeWStatMuDown'] = {
     'samples'        : ['Fake']
 }
 
-###### Top pT reweighting (to be updated to latest version when available)
+###### Top pT reweighting 
 aliases['Top_pTrw'] = {
     'expr': '(topGenPt * antitopGenPt > 0.) * (TMath::Sqrt((0.103*TMath::Exp(-0.0118*topGenPt) - 0.000134*topGenPt + 0.973) * (0.103*TMath::Exp(-0.0118*antitopGenPt) - 0.000134*antitopGenPt + 0.973))) + (topGenPt * antitopGenPt <= 0.)',
-    'samples': ['top']
+    'samples': ['Top']
 }
 
 
@@ -285,7 +285,7 @@ for flavour in ['bc','light']:
 
     aliases[btagsf_tmp] = {
         'linesToProcess':[
-            f'ROOT.gSystem.Load("{configurations}/WW_Run3/FullRun3/extended/evaluate_2024_btagSF{flavour}_cc.so","",ROOT.kTRUE)',
+            f'ROOT.gSystem.Load("{configurations}/WW_Run3/FullRun3/extended/evaluate_btagSF{flavour}_cc.so","",ROOT.kTRUE)',
             # f'ROOT.gInterpreter.Declare("btagSF{flavour} btagSF_{flavour}(\"{configurations}/WW_Run3/FullRun3/extended/data/btag_eff/bTagEff_{eff_map_year}_ttbar_loose.root\", \"{year}\", \"_parT\");")'
             f"ROOT.gInterpreter.Declare('btagSF{flavour} btag_SF{flavour} = btagSF{flavour}(\"{configurations}/WW_Run3/FullRun3/data/btag_eff/bTagEff_{eff_map_year}_ttbar_loose.root\",\"2024_Summer24\",\"_parT\");')"
         ],

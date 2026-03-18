@@ -52,7 +52,7 @@ groupPlot['VVV']  = {
 
 
 groupPlot['Vg']  = {  
-   'nameHR' : "$V\gamma$",
+   'nameHR' : "$V\\gamma$",
    'isSignal' : 0,
    'color'    : 810,   # kOrange + 10
    'colorPlt': "#e76300",

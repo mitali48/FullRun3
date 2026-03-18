@@ -1,4 +1,3 @@
-
 #ifndef weight2MINLO
 #define weight2MINLO
 

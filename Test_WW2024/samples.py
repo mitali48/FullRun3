@@ -114,7 +114,7 @@ DataTrig = {
 ############ MC COMMON ##################
 #########################################
 
-# SFweight does not include btag weights
+# SFweight does include btag weights
 mcCommonWeightNoMatch = 'XSWeight*METFilter_Common*SFweight'
 mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 
@@ -246,7 +246,7 @@ samples['ZZ'] = {
 #    'suppressNegativeNuisances' :['all'],
 #    'FilesPerJob': 5,
 #}
-#
+
 #addSampleWeight(samples, 'VgS', "ZG", "(Gen_ZGstar_mass > 0)")
 #addSampleWeight(samples, 'VgS', "ZG2JtoG2L2J", "(Gen_ZGstar_mass > 0)")
 #addSampleWeight(samples, 'VgS', "WGtoLNuG-1J_PTG10to100", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 0.1) * (gstarLow * 0.94)")
@@ -260,7 +260,7 @@ samples['ZZ'] = {
         
 files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
         nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50') + \
-        nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J_PTG100')
+        nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
 
 samples['Vg'] = {
     'name': files,
@@ -278,7 +278,7 @@ samples['VgS'] = {
 
 addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0)")
 addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0)")
-addSampleWeight(samples, 'VgS', "WGtoLNuG-1J_PTG100", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4) ")
+addSampleWeight(samples, 'VgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass < 4) ")
 addSampleWeight(samples, 'VgS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50) ")
 
 
@@ -301,7 +301,7 @@ samples['VVV'] = {
 
 samples['ggH_hww'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125'),
-    'weight': mcCommonWeight,
+    'weight': mcCommonWeight + ' * Weight2MINLO * 1092.7640/1073.2567',
     'FilesPerJob': 3,
 }
 
