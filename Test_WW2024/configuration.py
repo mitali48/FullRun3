@@ -1,7 +1,9 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "2024v15_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoLoose_HWW_PNet"   
+tag = "CR2024_noJeteEta_greaterthan_2pt5"
+#tag = "2024v15_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoLoose_HWW_tthmva_HWW"   
+#tag = "nominal_SR_CR__noJetInHorn_bTag_JES_JER"
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -10,7 +12,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/LeptonID_optimization/{}/rootFile/".format(tag)
+outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/WW2024_test/ControlRegion2024/{}/rootFile/".format(tag)
 print("Output folder: {}".format(outputFolder))
 #outputFolder = "../../../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
 #outputFolder = "rootFiles/DY_CR_2024/"
@@ -47,7 +49,7 @@ structureFile = "structure.py"
 nuisancesFile = "nuisances_ALL.py"
 
 # path to folder where to save plots
-plotPath = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() +  "/www/test_plotsWW2024/LeptonID_optimization/{}".format(tag) 
+plotPath = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() +  "/www/test_plotsWW2024/ControlRegion2024/{}/".format(tag) 
 #plotPath = "Plots"
 
 # this lines are executed right before the runner on the condor node

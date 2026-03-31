@@ -23,7 +23,7 @@ mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
 # LepSF2l__ele_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoLoose_HWW_tthmva_HWW
 eleWP = 'cutBased_LooseID_tthMVA_Run3'
-muWP  = 'cut_TightID_pfIsoLoose_HWW_PNet'
+muWP  = 'cut_TightID_pfIsoLoose_HWW_tthmva_HWW'
 
 aliases['LepWPCut'] = {
     'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP,
@@ -41,6 +41,10 @@ aliases['PromptGenLepMatch2l'] = {
     'samples': mc
 }
 
+aliases['PromptGenLepMatch1l'] = {
+    'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) >= 1)',
+    'samples': mc
+}
 
 # Fake leptons transfer factor
 aliases['fakeW'] = {
@@ -254,6 +258,7 @@ year = '2024' #_Summer24'
 shifts_per_flavour = {
     'bc': [
         'central',
+        'up' , 'down', 
         'down_bfragmentation','up_bfragmentation',
         'down_correlated','up_correlated',
         'down_fsrdef','up_fsrdef',

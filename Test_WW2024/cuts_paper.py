@@ -2,18 +2,19 @@ cuts = {}
 
 _tmp = [
     #'Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
-    'Lepton_pt[0] > 25.',
+    'Lepton_pt[0] > 25.', #reduce misidentified leptons
     'Lepton_pt[1] > 20.', 
     '(abs(Lepton_pdgId[1]) == 13 || Lepton_pt[1] > 13.)',
-    '(nLepton >= 2 && Alt(Lepton_pt,2, 0) < 10.)',
+    '(nLepton >= 2 && Alt(Lepton_pt,2, 0) < 10.)', #to suppress backgrounds from WZ and ZZ processes
     #'ptll>15',
     #'mll > 12',
-    '(zeroJet || Sum(CleanJet_pt>30.0)<=3)',
+    # '(zeroJet || Sum(CleanJet_pt>30.0)<=3)', #suppress QCD background 
     # 'allJetsInHorn_atLeastOne'
     #'anyJetInHorn' 
     # 'noJetInHorn_pT30'
     #'noJetInHorn_pT15'
-    # 'noJetInHorn'
+    'Sum((abs(CleanJet_eta) > 2.5) == 0), ' #adapted from Run3 WW analysis as looking at jets outside tracker acceptance does not make sense for this analysis
+    'noJetInHorn'
 ]
 
 preselections = ' && '.join(_tmp)
@@ -46,16 +47,6 @@ cuts['Zmm']  = {
     }
 }
 
-cuts['ww2l2v_ss'] = {
-    'expr': 'bVeto && mll>85  && Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13',
-    'categories' : {
-        'Inc': '1',
-        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
-        '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
-        '2j' : 'Sum(CleanJet_pt>30.0)==2',
-    }
-}
-
 cuts['ww2l2v_hww'] = {
     'expr': 'sr && mpmet>15 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
     'categories' : {
@@ -67,7 +58,18 @@ cuts['ww2l2v_hww'] = {
         'Inc': 'mll>12',
     }
 }
+
 '''
+
+cuts['ww2l2v_ss'] = {
+    'expr': 'bVeto && mll>85  && Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13',
+    'categories' : {
+        'Inc': '1',
+        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
+        '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
+        '2j' : 'Sum(CleanJet_pt>30.0)==2',
+    }
+}
 
 cuts['ww2l2v_sr']  = {
    'expr' : 'sr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
@@ -79,7 +81,6 @@ cuts['ww2l2v_sr']  = {
    }
 }
 
-'''
 cuts['ww2l2v_top']  = { 
    'expr' : 'topcr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
    'categories' : {
@@ -99,4 +100,3 @@ cuts['ww2l2v_dytt']  = {
        'Inc': '1',
    }
 }
-'''

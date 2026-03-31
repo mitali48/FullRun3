@@ -124,14 +124,13 @@ nuisances['fake_mu_stat'] = {
 
 ##### B-tagger
 
-'''
 for flavour in ['bc', 'light']:
     for corr in ['uncorrelated', 'correlated']:
         btag_syst = [f'btagSF{flavour}_up_{corr}/btagSF{flavour}', f'btagSF{flavour}_down_{corr}/btagSF{flavour}']
         if corr == 'correlated':
             name = f'CMS_btagSF{flavour}_{corr}'
         else:
-            name = f'CMS_btagSF{flavour}_2022EE'
+            name = f'CMS_btagSF{flavour}_2024'
         nuisances[f'btagSF{flavour}{corr}'] = {
             'name': name,
             'skipCMS' : 1,
@@ -139,7 +138,7 @@ for flavour in ['bc', 'light']:
             'type': 'shape',
             'samples': dict((skey, btag_syst) for skey in mc),
         }
-'''
+
 
 ##### Trigger Scale Factors                                                                                                                                                                                
 
@@ -199,8 +198,7 @@ nuisances['leppt_res'] = {
 
 ##### JES
 
-'''
-jes_systs    = ["Absolute", "Absolute_2022EE", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2022EE", "EC2_2022EE", "RelativeBal", "RelativeSample_2022EE", "HF_2022EE"] # Reduced set of 11 uncertainties
+jes_systs    = ["Absolute", "Absolute_2024", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2024", "EC2_2024", "RelativeBal", "RelativeSample_2024", "HF_2024"] # Reduced set of 11 uncertainties
 #jes_systs = ['jesTotal']
 
 for js in jes_systs:
@@ -231,6 +229,7 @@ nuisances['JER'] = {
     'AsLnN'     : '0'
 }
 
+'''
 ##### MET energy scale
 nuisances['met'] = {
     'name'      : 'CMS_scale_met_2022EE',

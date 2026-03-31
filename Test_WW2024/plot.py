@@ -56,7 +56,7 @@ groupPlot['Vg']  = {
    'isSignal' : 0,
    'color'    : 810,   # kOrange + 10
    'colorPlt': "#e76300",
-   'samples'  : ['Vg', 'VgS']
+   'samples'  : ['Zg', 'Wg', 'ZgS', 'WgS']
 }
 
 groupPlot['ggF']  = {
@@ -113,19 +113,34 @@ plot['ggWW']  = {
     'scale'    : 1.0,
 }
 
-plot['Vg']  = { 
+plot['Zg']  = { 
    'color': 859,
    'isSignal' : 0,
    'isData'   : 0,
    'scale'    : 1.0
 }
 
-plot['VgS']  = { 
+plot['Wg']  = { 
+   'color': 859, # kAzure -1  
+   'isSignal' : 0,          
+    'isData'   : 0, 
+    'scale'    : 1.0
+}
+
+plot['ZgS']  = { 
    'color'    : 859, # kAzure -1  
    'isSignal' : 0,
    'isData'   : 0,
    'scale'    : 1.0
 }
+
+plot['WgS']  = { 
+   'color'    : 859, # kAzure -1  
+   'isSignal' : 0,
+   'isData'   : 0,
+   'scale'    : 1.0
+}
+
 
 plot['WZ']  = {
     'color'    : 619,

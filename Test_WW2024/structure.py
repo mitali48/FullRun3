@@ -23,12 +23,22 @@ structure['ZZ'] = {
     'isData'   : 0 
 }
 
-structure['Vg'] = {   
+structure['Zg'] = {   
     'isSignal' : 0,
     'isData'   : 0 
 }
 
-structure['VgS'] = {   
+structure['Wg'] = {   
+    'isSignal' : 0,
+    'isData'   : 0 
+}
+
+structure['ZgS'] = {   
+    'isSignal' : 0,
+    'isData'   : 0 
+}
+
+structure['WgS'] = {   
     'isSignal' : 0,
     'isData'   : 0 
 }
@@ -82,3 +92,10 @@ structure['DATA']  = {
     'isSignal' : 0,
     'isData'   : 1 
 }
+
+
+# for nuis in nuisances.values():
+#     if 'cutspost' in nuis:
+#         print(nuis)
+#         nuis['cuts'] = nuis['cutspost']
+#         print(nuis)

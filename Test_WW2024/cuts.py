@@ -9,11 +9,11 @@ _tmp = [
     'ptll>15',
     'mll > 12',
     '(zeroJet || Sum(CleanJet_pt>30.0)<=3)',
-    'allJetsInHorn_atLeastOne'
+    #'allJetsInHorn_atLeastOne'
     #'anyJetInHorn' 
     # 'noJetInHorn_pT30'
     #'noJetInHorn_pT15'
-    # 'noJetInHorn'
+    'noJetInHorn'
 ]
 
 preselections = ' && '.join(_tmp)
