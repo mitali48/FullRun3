@@ -256,25 +256,31 @@ eff_map_year = '2024'
 year = '2024' #_Summer24'
 
 shifts_per_flavour = {
-    'bc': [
+    'bc' : [
         'central',
-        'up' , 'down', 
-        'down_bfragmentation','up_bfragmentation',
-        'down_correlated','up_correlated',
-        'down_fsrdef','up_fsrdef',
-        'down_hdamp','up_hdamp',
-        'down_isrdef','up_isrdef',
-        'down_jer','up_jer',
-        'down_jes','up_jes',
-        'down_muf','up_muf',
-        'down_mur','up_mur',
-        'down_pdfas', 'up_pdfas',
-        'down_pileup','up_pileup',
-        'down_statistic','up_statistic',
-        'down_topmass','up_topmass',
-        'down_type3','up_type3',
-        'down_uncorrelated','up_uncorrelated'
+        'down' , 'up',
+        'down_uncorrelated','up_uncorrelated',
+        'down_correlated','up_correlated'
     ],
+    # 'bc': [
+    #     'central',
+    #     'up' , 'down', 
+    #     'down_bfragmentation','up_bfragmentation',
+    #     'down_correlated','up_correlated',
+    #     'down_fsrdef','up_fsrdef',
+    #     'down_hdamp','up_hdamp',
+    #     'down_isrdef','up_isrdef',
+    #     'down_jer','up_jer',
+    #     'down_jes','up_jes',
+    #     'down_muf','up_muf',
+    #     'down_mur','up_mur',
+    #     'down_pdfas', 'up_pdfas',
+    #     'down_pileup','up_pileup',
+    #     'down_statistic','up_statistic',
+    #     'down_topmass','up_topmass',
+    #     'down_type3','up_type3',
+    #     'down_uncorrelated','up_uncorrelated'
+    # ],
    'light': [
         'central','down','down_correlated','down_uncorrelated',
         'up','up_correlated','up_uncorrelated'

@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "CR2024_noJeteEta_greaterthan_2pt5"
+tag = "CR2024_noJeteEta_greaterthan_2pt5_itr1"
 #tag = "2024v15_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoLoose_HWW_tthmva_HWW"   
 #tag = "nominal_SR_CR__noJetInHorn_bTag_JES_JER"
 

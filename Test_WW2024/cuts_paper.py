@@ -13,8 +13,9 @@ _tmp = [
     #'anyJetInHorn' 
     # 'noJetInHorn_pT30'
     #'noJetInHorn_pT15'
-    'Sum((abs(CleanJet_eta) > 2.5) == 0), ' #adapted from Run3 WW analysis as looking at jets outside tracker acceptance does not make sense for this analysis
-    'noJetInHorn'
+    # 'Sum((abs(CleanJet_eta) > 2.5) == 0)', #adapted from Run3 WW analysis as looking at jets outside tracker acceptance does not make sense for this analysis
+    # 'noJetInHorn'
+    'Sum(abs(CleanJet_eta) >= 2.5) == 0'
 ]
 
 preselections = ' && '.join(_tmp)
@@ -59,7 +60,6 @@ cuts['ww2l2v_hww'] = {
     }
 }
 
-'''
 
 cuts['ww2l2v_ss'] = {
     'expr': 'bVeto && mll>85  && Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13',
@@ -70,6 +70,8 @@ cuts['ww2l2v_ss'] = {
         '2j' : 'Sum(CleanJet_pt>30.0)==2',
     }
 }
+
+'''
 
 cuts['ww2l2v_sr']  = {
    'expr' : 'sr && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',

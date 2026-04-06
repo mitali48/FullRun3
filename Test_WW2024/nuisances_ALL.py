@@ -198,6 +198,7 @@ nuisances['leppt_res'] = {
 
 ##### JES
 
+#jes_systs = ["Absolute", "Absolute_2024"] # Full set of 25 uncertainties
 jes_systs    = ["Absolute", "Absolute_2024", "FlavorQCD", "BBEC1", "EC2", "HF", "BBEC1_2024", "EC2_2024", "RelativeBal", "RelativeSample_2024", "HF_2024"] # Reduced set of 11 uncertainties
 #jes_systs = ['jesTotal']
 
@@ -659,7 +660,7 @@ nuisances['Topnorm2j']  = {
                'type'  : 'rateParam',
                'cuts'  : cuts_2j
               }
-
+'''
 ### MC statistical uncertainty
 autoStats = True
 if autoStats:
@@ -672,4 +673,3 @@ if autoStats:
         #  nuisance ['includeSignal'] =  Include MC stat nuisances on signal processes (1=True, 0=False)
         'samples': {}
     }
-'''

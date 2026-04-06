@@ -292,7 +292,7 @@ files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
 samples['Zg'] = {
     'name': files,
     'weight': mcCommonWeight + '*(Gen_ZGstar_mass <= 0)',
-    'FilesPerJob': 5,
+    'FilesPerJob': 30,
 }
 
 #Wg
@@ -301,7 +301,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
 samples['Wg'] = {
     'name': files,
     'weight': mcCommonWeight1Match + '*(Gen_ZGstar_mass <= 0)',
-    'FilesPerJob': 5,
+    'FilesPerJob': 30,
 }
 
 #ZgS
@@ -312,7 +312,7 @@ files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50') + \
 samples['ZgS'] = {
     'name': files,
     'weight': mcCommonWeight + '*(Gen_ZGstar_mass > 0)', #the photon is virtual we can reconstruct its mass
-    'FilesPerJob': 5,
+    'FilesPerJob': 30,
 }
 
 # addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
@@ -324,8 +324,8 @@ files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J') + \
 
 samples['WgS'] = {
     'name': files,
-    'weight': mcCommonWeight1Match,
-    'FilesPerJob': 5,
+    'weight': mcCommonWeight,
+    'FilesPerJob': 30,
 }
 
 addSampleWeight(samples, 'WgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)")
