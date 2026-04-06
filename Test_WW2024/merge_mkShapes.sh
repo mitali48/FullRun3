@@ -52,7 +52,7 @@ if [ -f "$SAMPLE_OUT" ]; then
     continue
 fi
 
-echo "➡️  Processing ${SAMPLE}"
+echo "Processing ${SAMPLE}"
 
 # Create file list
 ls mkShapes__${TAG}__ALL__${SAMPLE}_*.root > ${FILELIST}
