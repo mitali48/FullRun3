@@ -190,7 +190,8 @@ aliases['Weight2MINLO'] = {
 # Jet bins
 # using Alt(CleanJet_pt, n, 0) instead of Sum(CleanJet_pt >= 30) because jet pt ordering is not strictly followed in JES-varied samples
 
-# No jet with pt > 30 GeV
+# No jet with pt > 30 GeV and eta > 2.5
+
 aliases['zeroJet'] = {
     'expr': 'Alt(CleanJet_pt, 0, 0) < 30.'
 }
@@ -202,6 +203,22 @@ aliases['oneJet'] = {
 aliases['multiJet'] = {
     'expr': 'Alt(CleanJet_pt, 1, 0) > 30.'
 }
+
+# aliases['zeroJet'] = {
+#     'expr': 'Alt(CleanJet_pt, 0, 0) < 30.'
+# }
+
+# aliases['oneJet'] = {
+#     'expr': 'Alt(CleanJet_pt, 0, 0) > 30. && Alt(CleanJet_pt, 1, 0) < 30.'
+# }
+
+# aliases['twoJet'] = {
+#     'expr': 'Alt(CleanJet_pt, 0, 0) > 30. && Alt(CleanJet_pt, 1, 0) > 30. && Alt(CleanJet_pt, 2, 0) < 30.'
+# }
+
+# aliases['multiJet'] = {
+#     'expr': 'Alt(CleanJet_pt, 2, 0) > 30.'
+# }
 
 aliases['noJetInHorn'] = {
     'expr' : 'Sum(CleanJet_pt > 30 && CleanJet_pt < 50 && abs(CleanJet_eta) > 2.5 && abs(CleanJet_eta) < 3.0) == 0',
@@ -247,7 +264,15 @@ aliases['bVeto'] = {
     'expr': f'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 0'
 }
 
-aliases['bReq'] = { 
+aliases['bReq1'] = { 
+    'expr': f'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 1'
+}
+
+aliases['bReq2'] = {
+    'expr': f'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 2'
+}
+
+aliases['bReq'] = {
     'expr': f'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) >= 1'
 }
 
@@ -334,8 +359,12 @@ for flavour in ['bc','light']:
 
 # CR definition
 
+aliases['preSel'] = {
+    'expr': 'Lepton_pt[0] > 25. && Lepton_pt[1] > 20. &&(nLepton >= 2 && Alt(Lepton_pt,2, 0) < 10.)',
+}
+
 aliases['topcr'] = {
-    'expr': ' mll > 85 && ((zeroJet && !bVeto) || bReq) && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13', # PuppiMET_pt>20 
+    'expr': ' mll > 85 && ( ((zeroJet && !bVeto) || bReq1)  || bReq2 )  && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13', # PuppiMET_pt>20 
 }
 
 aliases['dycr'] = {

@@ -15,8 +15,9 @@ dataSteps      = 'DATAl2loose2024v15__l2loose'
 ##############################################
 ###### Tree base directory for the site ######
 ##############################################
-treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano'
+treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/'
 limitFiles = -1
+
 
 def makeMCDirectory(var=""):
     _treeBaseDir = treeBaseDir + ""

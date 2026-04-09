@@ -23,7 +23,7 @@ fi
 
 # cd /afs/cern.ch/user/m/misharma/private/Latinos/HWWRUn3/PlotsConfigurationsRun3/WW_Run3/MyPlotsConfiguration/Test_WW2024/eos/user/m/misharma/mkShapesRDF_rootfiles/WW2024/test28Jan2026/condor/WW2024_test
 # cd condor/EGamma1_Run2024I-Prompt-v1/${SAMPLE}/
-cd condor/CR2024_noJeteEta_greaterthan_2pt5/${SAMPLE}/
+cd condor/Cuts_FlowTable_Itr0/${SAMPLE}/
 cp /eos/user/m/misharma/private/Latinos/HWWRun3/mkShapesRDF/mkShapesRDF/include/headers.hh /eos/user/m/misharma/private/Latinos/HWWRun3/mkShapesRDF/mkShapesRDF/shapeAnalysis/runner.py   .
 python runner.py
 cp output.root /eos/user/m/misharma/mkShapesRDF_rootfiles/WW2024_test/rootFiles__ALL__${SAMPLE}.root

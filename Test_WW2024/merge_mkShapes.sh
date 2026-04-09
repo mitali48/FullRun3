@@ -2,7 +2,7 @@
 
 # ================= USER CONFIG =================
 
-TAG="CR2024_noJeteEta_greaterthan_2pt5_itr1"
+TAG="CR2024_noJetInHorn"
 
 BASE_DIR="/eos/user/m/misharma/mkShapesRDF_rootfiles/WW2024_test/ControlRegion2024/${TAG}/rootFile"
 OUTPUT_DIR="${BASE_DIR}/merged"

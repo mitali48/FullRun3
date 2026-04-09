@@ -132,7 +132,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
 samples['WW'] = {
     'name': files,
     'weight': mcCommonWeight + "* wwNLL",
-    'FilesPerJob': 10
+    'FilesPerJob': 15
 }
 
 ########## ggWW #########
@@ -153,7 +153,7 @@ for label in [
 samples['ggWW'] = {
     'name': files,
     'weight': mcCommonWeight + " * KFactor_ggWW * (49.63 / 1000)",
-    'FilesPerJob': 10
+    'FilesPerJob': 15
 }
 
 addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoENuENu", "1.0 / 0.0744")
@@ -186,7 +186,7 @@ for label in [
 samples['DY'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 5
+    'FilesPerJob': 10
 }
 
 ########## Top #########
@@ -195,7 +195,7 @@ files = nanoGetSampleFiles(mcDirectory, 'TTTo2L2Nu') + nanoGetSampleFiles(mcDire
 samples['Top'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 5
+    'FilesPerJob': 15
 }
 addSampleWeight(samples,'Top','TTTo2L2Nu','Top_pTrw')
 
@@ -205,7 +205,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WZ')
 samples['WZ'] = {
     'name': files,
     'weight': mcCommonWeight +  ' * (Gen_ZGstar_mass >= 50)',
-    'FilesPerJob': 10
+    'FilesPerJob': 20
 }
 
 ########## ZZ #########
@@ -214,7 +214,7 @@ files = nanoGetSampleFiles(mcDirectory, 'ZZ')
 samples['ZZ'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 10
+    'FilesPerJob': 20
 }
 
 ######## Vg ########
@@ -342,7 +342,7 @@ files = nanoGetSampleFiles(mcDirectory, 'ZZZ') + \
 samples['VVV'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 2
+    'FilesPerJob': 20
 }
 
 ###########################################
@@ -352,13 +352,13 @@ samples['VVV'] = {
 samples['ggH_hww'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125'),
     'weight': mcCommonWeight + ' * Weight2MINLO * 1092.7640/1073.2567',
-    'FilesPerJob': 3,
+    'FilesPerJob': 20
 }
 
 samples['qqH_hww'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
     'weight': mcCommonWeight,
-    'FilesPerJob': 3,
+    'FilesPerJob': 20
 }
 
 ###########################################
