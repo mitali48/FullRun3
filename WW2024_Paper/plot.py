@@ -27,18 +27,19 @@ groupPlot['ZZ']  = {
     'samples'  : ['ZZ']
 }
 
-groupPlot['Fake']  = {
-    'nameHR' : 'nonprompt',
-    'isSignal' : 0,
-    'color': 921,    # kGray + 1
-    'colorPlt': "#778899",
-    'samples'  : ['Fake']
-}
+# groupPlot['Fake']  = {
+#     'nameHR' : 'nonprompt',
+#     'isSignal' : 0,
+#     'color': 921,    # kGray + 1
+#     'colorPlt': "#778899",
+#     'samples'  : ['Fake']
+# }
 
 groupPlot['WW']  = {
     'nameHR'   : 'WW',
     'isSignal' : 1,
     'color'    : 851,
+    'colorPlt': "#87cefa",
     'samples'  : ['WW','ggWW']
 }
 
@@ -85,12 +86,12 @@ plot['DY']  = {
     'scale'    : 1.0,
 }
 
-plot['Fake']  = {
-    'color': 921,    # kGray + 1
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0
-}
+# plot['Fake']  = {
+#     'color': 921,    # kGray + 1
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scale'    : 1.0
+# }
 
 plot['Top']  = {
     'color'    : 400,
@@ -101,14 +102,14 @@ plot['Top']  = {
 
 plot['WW']  = {
     'color'    : 851,
-    'isSignal' : 0,
+    'isSignal' : 1,
     'isData'   : 0,
     'scale'    : 1.0,
 }
 
 plot['ggWW']  = {
     'color'    : 851,
-    'isSignal' : 0,
+    'isSignal' : 1,
     'isData'   : 0,
     'scale'    : 1.0,
 }

@@ -8,7 +8,6 @@ variables['events'] = {
     'fold'  : 3
 }
 
-'''
 variables['nvtx'] = {     
     'name'  : 'PV_npvsGood',      
     'range' : (100, 0, 100),  
@@ -23,6 +22,7 @@ variables['mll'] = {
     'fold' : 0
 }
 
+'''
 variables['mtWW'] = {
     'name': 'mtWW',
     'range' : (60,0,200),
@@ -43,6 +43,7 @@ variables['mtw2']  = {
     'xaxis' : 'm_{T}^{W_{2}} [GeV]',
     'fold' : 0
 }
+'''
 
 variables['ptll']  = {  
     'name': 'ptll',     
@@ -51,6 +52,7 @@ variables['ptll']  = {
     'fold' : 0
 }
 
+'''
 variables['drll']  = {
     'name': 'drll',
     'range' : (50, 0,5),
@@ -71,6 +73,7 @@ variables['detall'] = {
     'xaxis' : '|#Delta#eta_{ll}|',
     'fold'  : 3
 }
+'''
 
 variables['pt1']  = { 
     'name': 'Lepton_pt[0]',     
@@ -99,7 +102,8 @@ variables['eta2']  = {
     'xaxis' : '#eta 2nd lep',
     'fold'  : 3                         
 }
-                       
+
+'''                       
 variables['phi1']  = {
     'name': 'Lepton_phi[0]',
     'range' : (20,-3.2,3.2),
@@ -116,7 +120,7 @@ variables['phi2']  = {
 '''
 
 # MET
-'''
+
 variables['puppimet']  = {
     'name': 'PuppiMET_pt',
     'range' : (20,0,200),
@@ -124,6 +128,7 @@ variables['puppimet']  = {
     'fold' : 3
 }
 
+'''
 variables['trkMet']  = { 
     'name': 'TkMET_pt',
     'range' : (20,0,200),
@@ -137,7 +142,9 @@ variables['mpmet']  = {
     'xaxis' : 'Min. proj. MET p_{T} [GeV]',
     'fold' : 3
 }
+'''
 
+### Jets
 variables['njet']  = {
     'name': 'Sum(CleanJet_pt>30)',
     'range' : (5,0,5),
@@ -176,7 +183,6 @@ variables['jeteta2']  = {
     'xaxis' : '#eta 2nd jet',
     'fold' : 0
 }
-'''
 
 """
 ###### Nº b-jets

@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "Cuts_FlowTable_Itr0"
+tag = "Itr8_bTagUpdate_eff_2jRedef"
 #tag = "2024v15_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoLoose_HWW_tthmva_HWW"   
 #tag = "nominal_SR_CR__noJetInHorn_bTag_JES_JER"
 
@@ -12,7 +12,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/WW2024_test/BackToBasics/{}/rootFile/".format(tag)
+outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/WW2024_Paper/TopCR/{}/rootFile/".format(tag)
 print("Output folder: {}".format(outputFolder))
 #outputFolder = "../../../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
 #outputFolder = "rootFiles/DY_CR_2024/"
@@ -28,13 +28,13 @@ configsFolder = "configs"
 lumi = 109.0
 
 # file with dict of aliases to define
-aliasesFile = "updated_aliases.py"
+aliasesFile = "aliases.py"
 
 # file with dict of variables
 variablesFile = "variables.py"
 
 # file with dict of cuts
-cutsFile = "cuts_flowTable.py"
+cutsFile = "cuts.py"
 
 # file with dict of samples
 samplesFile = "samples.py"
@@ -49,7 +49,7 @@ structureFile = "structure.py"
 nuisancesFile = "nuisances.py"
 
 # path to folder where to save plots
-plotPath = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() +  "/www/test_plotsWW2024/BackToBasics/{}/".format(tag) 
+plotPath = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() +  "/www/plotsWW2024_paper/TopCR/{}/".format(tag) 
 #plotPath = "Plots"
 
 # this lines are executed right before the runner on the condor node
