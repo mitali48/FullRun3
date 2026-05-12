@@ -22,14 +22,14 @@ variables['mll'] = {
     'fold' : 0
 }
 
-'''
 variables['mtWW'] = {
-    'name': 'mtWW',
+    'name': 'mth',
     'range' : (60,0,200),
     'xaxis' : 'm_{T}^{WW} [GeV]',
     'fold' : 0
 }
 
+'''
 variables['mtw1']  = {
     'name': 'mtw1',
     'range' : (50, 0.,100),

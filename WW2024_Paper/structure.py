@@ -82,10 +82,10 @@ structure['WW'] = {
 }
 
 #fakes
-# structure['Fake'] = {   
-#     'isSignal' : 0,
-#     'isData'   : 0 
-# }
+structure['Fake'] = {   
+    'isSignal' : 0,
+    'isData'   : 0 
+}
 
 # data
 structure['DATA']  = { 

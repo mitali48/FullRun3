@@ -4,39 +4,50 @@ _tmp = [
     'Lepton_pt[0] > 25.', #reduce misidentified leptons
     'Lepton_pt[1] > 20.', 
     '(nLepton >= 2 && Alt(Lepton_pt,2, 0) < 10.)', #to suppress backgrounds from WZ and ZZ processes
-    # 'abs(Lepton_eta[0]) < 2.5',
-    # 'abs(Lepton_eta[1]) < 2.5',
     'noJetInHorn'
 ]
 
 preselections = ' && '.join(_tmp)
 
-cuts['Top_CR_emu']  = {
-    'expr' : 'Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
+cuts['SR'] = {
+    'expr': 'mll > 85 && bVeto && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
     'categories' : {
-        '0j' : 'zeroJet',
-        '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
+        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0 ',
+        '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0 ',
         '2j' : 'Sum(CleanJet_pt>30.0)==2',
-        'Inc' : '1',
+        '3j' : 'Sum(CleanJet_pt>30.0)>=3',
+        'Inc': 'mll > 12',
     }
 }
-
-cuts['Top_CR_mll85_emu']  = {
-    'expr' : 'mll>85 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
-    'categories' : {
-        '0j' : 'zeroJet',
-        '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
-        '2j' : 'Sum(CleanJet_pt>30.0)==2',
-        'Inc' : '1',
-    }
-}
-
 cuts['Top_CR']  = {
-    'expr' : 'topcr',
+    'expr' : 'mll > 85 && ( ((zeroJet && !bVeto) || bReq1)  || bReq2 ) && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
     'categories' : {
-        '0j' : 'zeroJet',
-        '1j' : 'oneJet && Alt(CleanJet_pt,1,0)<30',
+        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
+        '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
+        '2j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)>30.0 && Alt(CleanJet_pt,2, 0.0)<30.0',
+        '3j' : 'Sum(CleanJet_pt>30.0)>=3',
+        'Inc' : 'mll > 12',
+    }
+}
+
+cuts['DYtautauCR']  = {
+   'expr' : 'ptll < 30 && mll < 85 && bVeto && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
+   'categories' : {
+       '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
+       '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
+       '2j' : 'Sum(CleanJet_pt>30.0)==2',
+       '3j' : 'Sum(CleanJet_pt>30.0)>=3',
+       'Inc': 'mll > 12',
+   }
+}
+
+cuts['nonpromptCR'] = {
+    'expr': 'bVeto && mll>85 && Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13',
+    'categories' : {
+        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
+        '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
         '2j' : 'Sum(CleanJet_pt>30.0)==2',
-        'Inc' : '1',
+        '3j' : 'Sum(CleanJet_pt>30.0)>=3',
+        'Inc': 'mll > 12',
     }
 }

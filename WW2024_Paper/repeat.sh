@@ -23,7 +23,7 @@ fi
 
 # cd /afs/cern.ch/user/m/misharma/private/Latinos/HWWRUn3/PlotsConfigurationsRun3/WW_Run3/MyPlotsConfiguration/Test_WW2024/eos/user/m/misharma/mkShapesRDF_rootfiles/WW2024/test28Jan2026/condor/WW2024_test
 # cd condor/EGamma1_Run2024I-Prompt-v1/${SAMPLE}/
-cd condor/Itr6_bTagUpdate_Maria/${SAMPLE}/
+cd condor/Itr4_Old_evaluate_btag/${SAMPLE}/
 cp /eos/user/m/misharma/private/Latinos/HWWRun3/mkShapesRDF/mkShapesRDF/include/headers.hh /eos/user/m/misharma/private/Latinos/HWWRun3/mkShapesRDF/mkShapesRDF/shapeAnalysis/runner.py   .
 python runner.py
 cp output.root /eos/user/m/misharma/mkShapesRDF_rootfiles/WW2024_Paper/rootFiles__ALL__${SAMPLE}.root
