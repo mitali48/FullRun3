@@ -23,25 +23,35 @@ structure['ZZ'] = {
     'isData'   : 0 
 }
 
-structure['Zg'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
+# structure['Zg'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
 
-structure['Wg'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
+# structure['Wg'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
 
-structure['ZgS'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
+# structure['ZgS'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
 
-structure['WgS'] = {   
+# structure['WgS'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
+
+structure['Vg'] = {
     'isSignal' : 0,
-    'isData'   : 0 
-}
+    'isData'   : 0
+    }
+
+structure['VgS'] = {
+    'isSignal' : 0,
+    'isData'   : 0
+    }
 
 structure['VVV'] = {   
     'isSignal' : 0,
@@ -94,8 +104,8 @@ structure['DATA']  = {
 }
 
 
-# for nuis in nuisances.values():
-#     if 'cutspost' in nuis:
-#         print(nuis)
-#         nuis['cuts'] = nuis['cutspost']
-#         print(nuis)
+for nuis in nuisances.values():
+    if 'cutspost' in nuis:
+        print(nuis)
+        nuis['cuts'] = nuis['cutspost']
+        print(nuis)

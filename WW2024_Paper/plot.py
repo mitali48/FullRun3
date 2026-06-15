@@ -57,7 +57,8 @@ groupPlot['Vg']  = {
    'isSignal' : 0,
    'color'    : 810,   # kOrange + 10
    'colorPlt': "#e76300",
-   'samples'  : ['Zg', 'Wg', 'ZgS', 'WgS']
+   'samples'  : ['Vg', 'VgS']
+#    'samples'  : ['Zg', 'Wg', 'ZgS', 'WgS']
 }
 
 groupPlot['ggF']  = {
@@ -113,34 +114,48 @@ plot['ggWW']  = {
     'isData'   : 0,
     'scale'    : 1.0,
 }
-
-plot['Zg']  = { 
-   'color': 859,
-   'isSignal' : 0,
-   'isData'   : 0,
-   'scale'    : 1.0
-}
-
-plot['Wg']  = { 
-   'color': 859, # kAzure -1  
-   'isSignal' : 0,          
-    'isData'   : 0, 
+plot['Vg']  = { 
+    'color': 859,
+    'isSignal' : 0,
+    'isData'   : 0,
     'scale'    : 1.0
 }
 
-plot['ZgS']  = { 
-   'color'    : 859, # kAzure -1  
-   'isSignal' : 0,
-   'isData'   : 0,
-   'scale'    : 1.0
+plot['VgS']  = { 
+    'color'    : 859, # kAzure -1  
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0
 }
 
-plot['WgS']  = { 
-   'color'    : 859, # kAzure -1  
-   'isSignal' : 0,
-   'isData'   : 0,
-   'scale'    : 1.0
-}
+
+# plot['Zg']  = { 
+#    'color': 859,
+#    'isSignal' : 0,
+#    'isData'   : 0,
+#    'scale'    : 1.0
+# }
+
+# plot['Wg']  = { 
+#    'color': 859, # kAzure -1  
+#    'isSignal' : 0,          
+#     'isData'   : 0, 
+#     'scale'    : 1.0
+# }
+
+# plot['ZgS']  = { 
+#    'color'    : 859, # kAzure -1  
+#    'isSignal' : 0,
+#    'isData'   : 0,
+#    'scale'    : 1.0
+# }
+
+# plot['WgS']  = { 
+#    'color'    : 859, # kAzure -1  
+#    'isSignal' : 0,
+#    'isData'   : 0,
+#    'scale'    : 1.0
+# }
 
 
 plot['WZ']  = {

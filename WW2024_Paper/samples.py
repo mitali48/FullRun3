@@ -101,7 +101,7 @@ DataRun = [
 DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
 
 DataTrig = {
-    'MuonEG'         : 'Trigger_ElMu' ,
+    'MuonEG'          :  'Trigger_ElMu' ,
     #'SingleMuon'     : '!Trigger_ElMu && Trigger_sngMu' ,
     'Muon0'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
     'Muon1'           : '!Trigger_ElMu && (Trigger_sngMu || Trigger_dblMu)',
@@ -132,7 +132,7 @@ files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
 samples['WW'] = {
     'name': files,
     'weight': mcCommonWeight + "* wwNLL",
-    'FilesPerJob': 15
+    'FilesPerJob': 30
 }
 
 ########## ggWW #########
@@ -153,7 +153,7 @@ for label in [
 samples['ggWW'] = {
     'name': files,
     'weight': mcCommonWeight + " * KFactor_ggWW * (49.63 / 1000)",
-    'FilesPerJob': 15
+    'FilesPerJob': 50
 }
 
 addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoENuENu", "1.0 / 0.0744")
@@ -185,7 +185,7 @@ for label in [
 samples['DY'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 10
+    'FilesPerJob': 40
 }
 
 ########## Top #########
@@ -204,17 +204,17 @@ for label in [
 samples['Top'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 15
+    'FilesPerJob': 30
 }
 addSampleWeight(samples,'Top','TTTo2L2Nu','Top_pTrw')
 
 ########## WZ #########
-files = nanoGetSampleFiles(mcDirectory, 'WZ')
+files = nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
 
 samples['WZ'] = {
     'name': files,
     'weight': mcCommonWeight +  ' * (Gen_ZGstar_mass >= 50)',
-    'FilesPerJob': 20
+    'FilesPerJob': 50
 }
 
 ########## ZZ #########
@@ -223,56 +223,91 @@ files = nanoGetSampleFiles(mcDirectory, 'ZZ')
 samples['ZZ'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 20
+    'FilesPerJob': 50
 }
 
 # Vg/Vgstar
 
-#Zg        
-files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50')
-
-samples['Zg'] = {
+######## Vg ########
+files = []
+for label in [
+        "WGtoLNuG-1J",
+        "DYGto2LG-1Jets_Bin-MLL-4to50",
+        "DYGto2LG-1Jets_Bin-MLL-50"]:
+#
+    files += nanoGetSampleFiles(mcDirectory, label)
+#
+samples['Vg'] = {
     'name': files,
-    'weight': mcCommonWeight + '*(Gen_ZGstar_mass <= 0)',
-    'FilesPerJob': 30,
+    'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
+    'suppressNegative' :['all'],
+    'suppressNegativeNuisances' :['all'],
+    'FilesPerJob':60,
 }
+##########VgS#########
+files = files + nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
 
-#Wg
-files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
-
-samples['Wg'] = {
-    'name': files,
-    'weight': mcCommonWeight1Match + '*(Gen_ZGstar_mass <= 0)',
-    'FilesPerJob': 30,
-}
-
-#ZgS
-files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50') + \
-        nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50')
-        
-
-samples['ZgS'] = {
-    'name': files,
-    'weight': mcCommonWeight + '*(Gen_ZGstar_mass > 0)', #the photon is virtual we can reconstruct its mass
-    'FilesPerJob': 30,
-}
-
-# addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-# addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-
-# WgS
-files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J') + \
-        nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
-
-samples['WgS'] = {
+samples['VgS'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 30,
+    'suppressNegative' :['all'],
+    'suppressNegativeNuisances' :['all'],
+    'FilesPerJob': 60,
 }
 
-addSampleWeight(samples, 'WgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)")
-addSampleWeight(samples, 'WgS', "WZTo3LNu",    "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
+addSampleWeight(samples, 'VgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)"),
+addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0)"),
+addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0)"),
+addSampleWeight(samples, 'VgS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
+
+
+# #Zg        
+# files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
+#         nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50')
+
+# samples['Zg'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*(Gen_ZGstar_mass <= 0)',
+#     'FilesPerJob': 30,
+# }
+
+# #Wg
+# files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
+
+# samples['Wg'] = {
+#     'name': files,
+#     'weight': mcCommonWeight1Match + '*(Gen_ZGstar_mass <= 0)',
+#     'FilesPerJob': 30,
+# }
+
+# #ZgS
+# files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50') + \
+#         nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50')
+        
+
+# samples['ZgS'] = {
+#     'name': files,
+#     'weight': mcCommonWeight + '*(Gen_ZGstar_mass > 0)', #the photon is virtual we can reconstruct its mass
+#     'FilesPerJob': 80,
+# }
+
+
+
+# # addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+# # addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
+
+# # WgS
+# files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J') + \
+#         nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
+
+# samples['WgS'] = {
+#     'name': files,
+#     'weight': mcCommonWeight,
+#     'FilesPerJob': 80,
+# }
+
+# addSampleWeight(samples, 'WgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)")
+# addSampleWeight(samples, 'WgS', "WZTo3LNu",    "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
 
 
 ########## Multibosons VVV #########
@@ -284,7 +319,7 @@ files = nanoGetSampleFiles(mcDirectory, 'ZZZ') + \
 samples['VVV'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 20
+    'FilesPerJob': 50
 }
 
 ###########################################
@@ -293,15 +328,15 @@ samples['VVV'] = {
 
 samples['ggH_hww'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125'),
-    'weight': mcCommonWeight ,
-    # 'weight': mcCommonWeight + ' * Weight2MINLO * 1092.7640/1073.2567',
-    'FilesPerJob': 20
+    # 'weight': mcCommonWeight ,
+    'weight': mcCommonWeight + ' * Weight2MINLO * 1092.7640/1073.2567',
+    'FilesPerJob': 50
 }
 
 samples['qqH_hww'] = {
     'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
     'weight': mcCommonWeight,
-    'FilesPerJob': 20
+    'FilesPerJob': 50
 }
 
 ###########################################

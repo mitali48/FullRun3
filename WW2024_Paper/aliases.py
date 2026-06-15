@@ -20,8 +20,8 @@ mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 
 # LepCut2l__ele_cutBased_MediumID_tthMVA_HWW__mu_cut_TightID_pfIsoLoose_HWW_tthmva_HWW
-eleWP = 'cutBased_MediumID_tthMVA_HWW'
-muWP  = 'cut_TightID_pfIsoLoose_HWW_tthmva_HWW'
+eleWP = 'cutBased_MediumID_tthMVA_Run3'
+muWP  = 'cut_TightID_pfIsoLoose_HWW_tthmva_67'
 
 aliases['LepWPCut'] = {
     'expr': 'LepCut2l__ele_'+eleWP+'__mu_'+muWP,
@@ -42,6 +42,12 @@ aliases['PromptGenLepMatch2l'] = {
 aliases['PromptGenLepMatch1l'] = {
     'expr': '(Alt(Lepton_promptgenmatched, 0, 0) + Alt(Lepton_promptgenmatched, 1, 0) >= 1)',
     'samples': mc
+}
+
+###### Top pT reweighting 
+aliases['Top_pTrw'] = {
+    'expr': '(topGenPt * antitopGenPt > 0.) * (TMath::Sqrt((0.103*TMath::Exp(-0.0118*topGenPt) - 0.000134*topGenPt + 0.973) * (0.103*TMath::Exp(-0.0118*antitopGenPt) - 0.000134*antitopGenPt + 0.973))) + (topGenPt * antitopGenPt <= 0.)',
+    'samples': ['Top']
 }
 
 # Fake leptons transfer factor
@@ -107,14 +113,6 @@ aliases['fakeWStatMuDown'] = {
     'expr'           : f'fr_reader_StatMuDown(Lepton_pdgId, Lepton_pt, Lepton_eta, Lepton_isTightMuon_{muWP}, Lepton_isTightElectron_{eleWP}, Lepton_muonIdx, CleanJet_pt, nCleanJet)',
     'samples'        : ['Fake']
 }
-
-###### Top pT reweighting 
-aliases['Top_pTrw'] = {
-    'expr': '(topGenPt * antitopGenPt > 0.) * (TMath::Sqrt((0.103*TMath::Exp(-0.0118*topGenPt) - 0.000134*topGenPt + 0.973) * (0.103*TMath::Exp(-0.0118*antitopGenPt) - 0.000134*antitopGenPt + 0.973))) + (topGenPt * antitopGenPt <= 0.)',
-    'samples': ['Top']
-}
-
-
 
 ###### -------------------------------------- 
 

@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "Itr8_muWP_cut_TightID_pfIsoLoose_HWW_tthmva_HWW"
+tag = "Itr6_bReq2_1or2"
 #tag = "2024v15_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoLoose_HWW_tthmva_HWW"   
 #tag = "nominal_SR_CR__noJetInHorn_bTag_JES_JER"
 
@@ -12,7 +12,7 @@ runnerFile = "default"
 outputFile = "mkShapes__{}.root".format(tag)
 
 #: path to ouput folder
-outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/WW2024_Paper/SR_CR/{}/rootFile/".format(tag)
+outputFolder = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() + "/mkShapesRDF_rootfiles/WW2024_Paper/SR_CR_nuisances/{}/rootFile/".format(tag)
 print("Output folder: {}".format(outputFolder))
 #outputFolder = "../../../../../../../../../../../../../eos/user/s/sblancof/MC/rootFiles"
 #outputFolder = "rootFiles/DY_CR_2024/"
@@ -46,10 +46,10 @@ plotFile = "plot.py"
 structureFile = "structure.py"
 
 # nuisances file for mkDatacards and for mkShape
-nuisancesFile = "nuisances.py"
+nuisancesFile = "nuisances_ALL.py"
 
 # path to folder where to save plots
-plotPath = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() +  "/www/plotsWW2024_paper/SR_CR/{}/".format(tag) 
+plotPath = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() +  "/www/plotsWW2024_paper/SR_CR_nuisances/{}/".format(tag) 
 #plotPath = "Plots"
 
 # this lines are executed right before the runner on the condor node
