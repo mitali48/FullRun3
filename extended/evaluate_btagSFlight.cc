@@ -69,7 +69,7 @@ class btagSFlight {
 
 	  double pt = ROOT::VecOps::Min(ROOT::RVecD{CleanJet_pt[iJ], 9999.9});
 	  
-	  if (CleanJet_pt[iJ] <= 30. || abs(CleanJet_eta[iJ]) >= 2.5) continue;
+	  if (CleanJet_pt[iJ] <= 20. || abs(CleanJet_eta[iJ]) >= 2.5) continue;
 	  if (Jet_btag[CleanJet_jetIdx[iJ]] > cset_deepJet_wps->evaluate({WP})) {
 
 	    if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 0) {

@@ -93,7 +93,7 @@ public:
 
       SetPTWW(w_pt1, w_phi1, w_eta1, w_pt2, w_phi2, w_eta2);
       
-      if (_useOnlyRatio == false) {
+    if (_useOnlyRatio == false) {  // this if statement wouldn't pass through as we have specified  _useOnlyRatio = true inside the constructor of qqww_K_producer class. So, the else part will be executed.
   
 	if (variation == 0) {
 	  weight =  ptww < 500. ? _resum_central->Eval(ptww)/_mc_central->Eval(ptww) : 1;
@@ -118,7 +118,8 @@ public:
 	    //    weight = _reweightingFactors_Rup[bin];   
 	  }
 	}
-      }else{
+    }
+	else{
 	if (variation == 0) {
 	  weight =  ptww < 500. ? _resum_central->Eval(ptww) : 1;
 	}

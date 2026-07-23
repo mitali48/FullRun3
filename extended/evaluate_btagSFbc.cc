@@ -50,7 +50,7 @@ class btagSFbc {
       std::string wpKey;
       
       if (year_ == "2024_Summer24"){
-	      correctionKey = "UParTAK4_mujets";
+	      correctionKey = "UParTAK4_comb";
 	      wpKey = "UParTAK4_wp_values";
       }
       else{
@@ -76,15 +76,20 @@ class btagSFbc {
 	  if (CleanJet_pt[iJ] <= 20. || abs(CleanJet_eta[iJ]) >= 2.5) continue;
 	  if (Jet_btag[CleanJet_jetIdx[iJ]] > cset_deepJet_wps->evaluate({WP})) {
 	    if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 5) {
-	      btag_sf *= cset_deepJet_mujets->evaluate({systematic[i], WP, 5, abs(CleanJet_eta[iJ]), pt});
+        if (year_ == "2024_Summer24"){
+		      btag_sf *= cset_deepJet_mujets_alt->evaluate({systematic[i], WP, 5, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]});
+	      }else{
+		      btag_sf *= cset_deepJet_mujets->evaluate({systematic[i], WP, 5, abs(CleanJet_eta[iJ]), pt});
+	      }
+	      //btag_sf *= cset_deepJet_mujets->evaluate({systematic[i], WP, 5, abs(CleanJet_eta[iJ]), pt});
 	    }
 	    else if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 4) {
 	      
 	      if (year_ == "2024_Summer24"){
-		btag_sf *= cset_deepJet_mujets_alt->evaluate({systematic[i], WP, 4, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]});
-		//btag_sf *= cset_deepJet_mujets_alt->evaluate({"central", WP, 4, abs(CleanJet_eta[iJ]), pt});
+		      btag_sf *= cset_deepJet_mujets_alt->evaluate({systematic[i], WP, 4, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]});
+		      //btag_sf *= cset_deepJet_mujets_alt->evaluate({"central", WP, 4, abs(CleanJet_eta[iJ]), pt});
 	      }else{
-		btag_sf *= cset_deepJet_mujets->evaluate({systematic[i], WP, 4, abs(CleanJet_eta[iJ]), pt});
+		      btag_sf *= cset_deepJet_mujets->evaluate({systematic[i], WP, 4, abs(CleanJet_eta[iJ]), pt});
 	      }
 	    }
 	    else {
@@ -97,15 +102,22 @@ class btagSFbc {
 	      continue;
 	    }else {
 	      if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 5) {
-		btag_sf *= (1-btag_eff*cset_deepJet_mujets->evaluate({systematic[i], WP, 5, abs(CleanJet_eta[iJ]), pt}))/(1-btag_eff);
+		      if (year_ == "2024_Summer24"){
+		        btag_sf *= (1-btag_eff*cset_deepJet_mujets_alt->evaluate({systematic[i], WP, 5, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]}))/(1-btag_eff);
+		        //btag_sf *= (1-btag_eff*cset_deepJet_mujets_alt->evaluate({"central", WP, 4, abs(CleanJet_eta[iJ]), pt}))/(1-btag_eff);
+		      }else{
+		        btag_sf *= (1-btag_eff*cset_deepJet_mujets->evaluate({systematic[i], WP, 5, abs(CleanJet_eta[iJ]), pt}))/(1-btag_eff);
+		      }
+          
+          //btag_sf *= (1-btag_eff*cset_deepJet_mujets->evaluate({systematic[i], WP, 5, abs(CleanJet_eta[iJ]), pt}))/(1-btag_eff);
 	      }
 	      else if (Jet_hadronFlavour[CleanJet_jetIdx[iJ]] == 4) {
-		if (year_ == "2024_Summer24"){
-		  btag_sf *= (1-btag_eff*cset_deepJet_mujets_alt->evaluate({systematic[i], WP, 4, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]}))/(1-btag_eff);
-		  //btag_sf *= (1-btag_eff*cset_deepJet_mujets_alt->evaluate({"central", WP, 4, abs(CleanJet_eta[iJ]), pt}))/(1-btag_eff);
-		}else{
-		  btag_sf *= (1-btag_eff*cset_deepJet_mujets->evaluate({systematic[i], WP, 4, abs(CleanJet_eta[iJ]), pt}))/(1-btag_eff);
-		}
+		      if (year_ == "2024_Summer24"){
+		        btag_sf *= (1-btag_eff*cset_deepJet_mujets_alt->evaluate({systematic[i], WP, 4, abs(CleanJet_eta[iJ]), CleanJet_pt[iJ]}))/(1-btag_eff);
+		        //btag_sf *= (1-btag_eff*cset_deepJet_mujets_alt->evaluate({"central", WP, 4, abs(CleanJet_eta[iJ]), pt}))/(1-btag_eff);
+		      }else{
+		        btag_sf *= (1-btag_eff*cset_deepJet_mujets->evaluate({systematic[i], WP, 4, abs(CleanJet_eta[iJ]), pt}))/(1-btag_eff);
+		      }
 	      }
 	      else {
 		continue;
