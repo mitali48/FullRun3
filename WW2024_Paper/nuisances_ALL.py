@@ -404,22 +404,23 @@ nuisances['QCDscale_V'] = {
     'samples': {'DY': variations},
     'AsLnN': '1'
 }
-nuisances['QCDscale_VV'] = {
-    'name' : 'QCDscale_VV',
-    'kind' : 'weight_envelope',
-    'type' : 'shape',
-    'samples' : {
-        'WW'  : variations
 
-        # 'WW_minnlo'  : variations,
-        # 'WWewk' : variations,
-        # 'Vg'  : variations,
+# nuisances['QCDscale_VV'] = {
+#     'name' : 'QCDscale_VV',
+#     'kind' : 'weight_envelope',
+#     'type' : 'shape',
+#     'samples' : {
+#         'WW'  : variations
 
-        #'ZZ'  : variations, # Not in branches
-        #'WZ'  : variations,
-        #'VgS' : variations,
-    }
-}
+#         # 'WW_minnlo'  : variations,
+#         # 'WWewk' : variations,
+#         # 'Vg'  : variations,
+
+#         #'ZZ'  : variations, # Not in branches
+#         #'WZ'  : variations,
+#         #'VgS' : variations,
+#     }
+# }
 
 for ibin in ['0j','1j','2j','3j']:
     nuisances['QCDscale_WW_'+ibin]  = {
@@ -456,16 +457,17 @@ nuisances['QCDscale_ggWW'] = {
     },
 }
 
-nuisances['WWresum0j']  = {
-    'name'  : 'CMS_ww_WWresum_0j',
-    'skipCMS' : 1,
-    'kind'  : 'weight',
-    'type'  : 'shape',
-    'samples'  : {
-        'WW'   : ['nllW_Rup/wwNLL', 'nllW_Rdown/wwNLL'],
-    },
-    'cutspost' : [cut for cut in total_cuts if '0j' in cut],
-}
+# nuisances['WWresum0j']  = {
+#     'name'  : 'CMS_ww_WWresum_0j',
+#     'skipCMS' : 1,
+#     'kind'  : 'weight',
+#     'type'  : 'shape',
+#     'samples'  : {
+#         'WW'   : ['nllW_Rup/wwNLL', 'nllW_Rdown/wwNLL'],
+#     },
+#     'cutspost' : [cut for cut in total_cuts if '0j' in cut],
+# }
+
 nuisances['WWqscale0j']  = {
     'name'  : 'CMS_ww_WWqscale_0j',
     'skipCMS' : 1,
@@ -476,16 +478,16 @@ nuisances['WWqscale0j']  = {
     },
     'cutspost' : [cut for cut in total_cuts if '0j' in cut],
 }
-nuisances['WWresum1j']  = {
-    'name'  : 'CMS_ww_WWresum_1j',
-    'skipCMS' : 1,
-    'kind'  : 'weight',
-    'type'  : 'shape',
-    'samples'  : {
-        'WW'   : ['nllW_Rup/wwNLL', 'nllW_Rdown/wwNLL'],
-    },
-    'cutspost' : [cut for cut in total_cuts if '1j' in cut],
-}
+    # nuisances['WWresum1j']  = {
+    #     'name'  : 'CMS_ww_WWresum_1j',
+    #     'skipCMS' : 1,
+    #     'kind'  : 'weight',
+    #     'type'  : 'shape',
+    #     'samples'  : {
+    #         'WW'   : ['nllW_Rup/wwNLL', 'nllW_Rdown/wwNLL'],
+    #     },
+    #     'cutspost' : [cut for cut in total_cuts if '1j' in cut],
+    # }
 nuisances['WWqscale1j']  = {
     'name'  : 'CMS_ww_WWqscale_1j',
     'skipCMS' : 1,
@@ -496,16 +498,16 @@ nuisances['WWqscale1j']  = {
     },
     'cutspost' : [cut for cut in total_cuts if '1j' in cut],
 }
-nuisances['WWresum2j']  = {
-    'name'  : 'CMS_ww_WWresum_2j',
-    'skipCMS' : 1,
-    'kind'  : 'weight',
-    'type'  : 'shape',
-    'samples'  : {
-        'WW'   : ['nllW_Rup/wwNLL', 'nllW_Rdown/wwNLL'],
-    },
-    'cutspost' : [cut for cut in total_cuts if '2j' in cut],
-}
+# nuisances['WWresum2j']  = {
+#     'name'  : 'CMS_ww_WWresum_2j',
+#     'skipCMS' : 1,
+#     'kind'  : 'weight',
+#     'type'  : 'shape',
+#     'samples'  : {
+#         'WW'   : ['nllW_Rup/wwNLL', 'nllW_Rdown/wwNLL'],
+#     },
+#     'cutspost' : [cut for cut in total_cuts if '2j' in cut],
+# }
 nuisances['WWqscale2j']  = {
     'name'  : 'CMS_ww_WWqscale_2j',
     'skipCMS' : 1,
@@ -516,16 +518,16 @@ nuisances['WWqscale2j']  = {
     },
     'cutspost' : [cut for cut in total_cuts if '2j' in cut],
 }
-nuisances['WWresum3j']  = {
-    'name'  : 'CMS_ww_WWresum_3j',
-    'skipCMS' : 1,
-    'kind'  : 'weight',
-    'type'  : 'shape',
-    'samples'  : {
-        'WW'   : ['nllW_Rup/wwNLL', 'nllW_Rdown/wwNLL'],
-    },
-    'cutspost' : [cut for cut in total_cuts if '3j' in cut],
-}
+# nuisances['WWresum3j']  = {
+#     'name'  : 'CMS_ww_WWresum_3j',
+#     'skipCMS' : 1,
+#     'kind'  : 'weight',
+#     'type'  : 'shape',
+#     'samples'  : {
+#         'WW'   : ['nllW_Rup/wwNLL', 'nllW_Rdown/wwNLL'],
+#     },
+#     'cutspost' : [cut for cut in total_cuts if '3j' in cut],
+# }
 
 
 
@@ -695,36 +697,36 @@ nuisances['Topnorm3j']  = {
     }
 
 ########## NonPrompt / Fake ##########
-nuisances['Fakenorm0j'] = {
-    'name': 'CMS_ww_Fakenorm0j_2024',  
-    'skipCMS' : 1,  
-    'samples': {'Fake': '1.00'},
-    'type': 'rateParam',
-    'cuts': cuts0j
-}
+# nuisances['Fakenorm0j'] = {
+#     'name': 'CMS_ww_Fakenorm0j_2024',  
+#     'skipCMS' : 1,  
+#     'samples': {'Fake': '1.00'},
+#     'type': 'rateParam',
+#     'cuts': cuts0j
+# }
 
-nuisances['Fakenorm1j'] = {
-    'name': 'CMS_ww_Fakenorm1j_2024',
-    'skipCMS' : 1,
-    'samples': {'Fake': '1.00'},
-    'type': 'rateParam',
-    'cuts': cuts1j
-}
+# nuisances['Fakenorm1j'] = {
+#     'name': 'CMS_ww_Fakenorm1j_2024',
+#     'skipCMS' : 1,
+#     'samples': {'Fake': '1.00'},
+#     'type': 'rateParam',
+#     'cuts': cuts1j
+# }
 
-nuisances['Fakenorm2j'] = {
-    'name': 'CMS_ww_Fakenorm2j_2024',
-    'skipCMS' : 1,
-    'samples': {'Fake': '1.00'},
-    'type': 'rateParam',
-    'cuts': cuts2j
-}
-nuisances['Fakenorm3j'] = {
-    'name': 'CMS_ww_Fakenorm3j_2024',
-    'skipCMS' : 1,
-    'samples': {'Fake': '1.00'},
-    'type': 'rateParam',
-    'cuts': cuts3j
-}
+# nuisances['Fakenorm2j'] = {
+#     'name': 'CMS_ww_Fakenorm2j_2024',
+#     'skipCMS' : 1,
+#     'samples': {'Fake': '1.00'},
+#     'type': 'rateParam',
+#     'cuts': cuts2j
+# }
+# nuisances['Fakenorm3j'] = {
+#     'name': 'CMS_ww_Fakenorm3j_2024',
+#     'skipCMS' : 1,
+#     'samples': {'Fake': '1.00'},
+#     'type': 'rateParam',
+#     'cuts': cuts3j
+# }
 
 ### MC statistical uncertainty
 autoStats = True

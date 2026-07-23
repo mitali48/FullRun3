@@ -14,7 +14,7 @@ cuts['SR'] = {
     'categories' : {
         '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0 ',
         '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0 ',
-        '2j' : 'Sum(CleanJet_pt>30.0)==2',
+        '2j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)>30.0 && Alt(CleanJet_pt,2, 0.0)<30.0',
         '3j' : 'Sum(CleanJet_pt>30.0)>=3',
         'Inc': 'mll > 12',
     }
@@ -35,7 +35,7 @@ cuts['DYtautauCR']  = {
    'categories' : {
        '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
        '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
-       '2j' : 'Sum(CleanJet_pt>30.0)==2',
+       '2j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)>30.0 && Alt(CleanJet_pt,2, 0.0)<30.0',
        '3j' : 'Sum(CleanJet_pt>30.0)>=3',
        'Inc': 'mll > 12',
    }
@@ -46,8 +46,30 @@ cuts['nonpromptCR'] = {
     'categories' : {
         '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
         '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
-        '2j' : 'Sum(CleanJet_pt>30.0)==2',
+        '2j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)>30.0 && Alt(CleanJet_pt,2, 0.0)<30.0',
         '3j' : 'Sum(CleanJet_pt>30.0)>=3',
         'Inc': 'mll > 12',
     }
+}
+
+cuts['DYmumuCR']  = {
+   'expr' : 'mll > 60 && mll < 120 && bVeto && Lepton_pdgId[0]*Lepton_pdgId[1] == -13*13',
+   'categories' : {
+       '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
+       '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
+       '2j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)>30.0 && Alt(CleanJet_pt,2, 0.0)<30.0',
+       '3j' : 'Sum(CleanJet_pt>30.0)>=3',
+       'Inc': 'mll > 12',
+   }
+}
+
+cuts['DYeeCR']  = {
+   'expr' : 'mll > 60 && mll < 120 && bVeto && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*11',
+   'categories' : {
+       '0j' : 'Alt(CleanJet_pt,0, 0.0)<30.0',
+       '1j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0',
+       '2j' : 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)>30.0 && Alt(CleanJet_pt,2, 0.0)<30.0',
+       '3j' : 'Sum(CleanJet_pt>30.0)>=3',
+       'Inc': 'mll > 12',
+   }
 }

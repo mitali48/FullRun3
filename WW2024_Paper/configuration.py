@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "Itr6_bReq2_1or2"
+tag = "Itr8_btagSF_comb_DYee_mumu_CR"
 #tag = "2024v15_cutBased_LooseID_tthMVA_Run3__mu_cut_TightID_pfIsoLoose_HWW_tthmva_HWW"   
 #tag = "nominal_SR_CR__noJetInHorn_bTag_JES_JER"
 
