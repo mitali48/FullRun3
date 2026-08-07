@@ -1,107 +1,116 @@
 # structure configuration for datacard
+structure ={}
 
-structure = {}
-
-# keys here must match keys in samples.py    
-structure['DY'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
-
-structure['Top'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
-
-structure['WZ'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
-
-structure['ZZ'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
-
-# structure['Zg'] = {   
-#     'isSignal' : 0,
-#     'isData'   : 0 
-# }
-
-# structure['Wg'] = {   
-#     'isSignal' : 0,
-#     'isData'   : 0 
-# }
-
-# structure['ZgS'] = {   
-#     'isSignal' : 0,
-#     'isData'   : 0 
-# }
-
-# structure['WgS'] = {   
-#     'isSignal' : 0,
-#     'isData'   : 0 
-# }
-
-structure['Vg'] = {
-    'isSignal' : 0,
-    'isData'   : 0
+# keys here must match keys in samples.py 
+for iproc in samples.keys():
+    structure[iproc] = {
+        'isSignal' : 1 if 'WW_B' in iproc else 0,
+        'isData'   : 1 if iproc == 'DATA' else 0,
     }
 
-structure['VgS'] = {
-    'isSignal' : 0,
-    'isData'   : 0
-    }
 
-structure['VVV'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
+# structure = {}
 
-structure['ggF'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
+# # keys here must match keys in samples.py    
+# structure['DY'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
 
-structure['VBF'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
+# structure['Top'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
 
-structure['ggH_hww'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
+# structure['WZ'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
 
-structure['qqH_hww'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
+# structure['ZZ'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
+
+# # structure['Zg'] = {   
+# #     'isSignal' : 0,
+# #     'isData'   : 0 
+# # }
+
+# # structure['Wg'] = {   
+# #     'isSignal' : 0,
+# #     'isData'   : 0 
+# # }
+
+# # structure['ZgS'] = {   
+# #     'isSignal' : 0,
+# #     'isData'   : 0 
+# # }
+
+# # structure['WgS'] = {   
+# #     'isSignal' : 0,
+# #     'isData'   : 0 
+# # }
+
+# structure['Vg'] = {
+#     'isSignal' : 0,
+#     'isData'   : 0
+#     }
+
+# structure['VgS'] = {
+#     'isSignal' : 0,
+#     'isData'   : 0
+#     }
+
+# structure['VVV'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
+
+# structure['ggF'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
+
+# structure['VBF'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
+
+# structure['ggH_hww'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
+
+# structure['qqH_hww'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
 
 
-#signal
+# #signal
 
-structure['ggWW'] = {   
-    'isSignal' : 1,
-    'isData'   : 0 
-}
+# structure['ggWW'] = {   
+#     'isSignal' : 1,
+#     'isData'   : 0 
+# }
 
-structure['WW'] = {   
-    'isSignal' : 1,
-    'isData'   : 0 
-}
+# structure['WW'] = {   
+#     'isSignal' : 1,
+#     'isData'   : 0 
+# }
 
-#fakes
-structure['Fake'] = {   
-    'isSignal' : 0,
-    'isData'   : 0 
-}
+# #fakes
+# structure['Fake'] = {   
+#     'isSignal' : 0,
+#     'isData'   : 0 
+# }
 
-# data
-structure['DATA']  = { 
-    'isSignal' : 0,
-    'isData'   : 1 
-}
+# # data
+# structure['DATA']  = { 
+#     'isSignal' : 0,
+#     'isData'   : 1 
+# }
 
 
 for nuis in nuisances.values():

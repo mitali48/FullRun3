@@ -125,15 +125,17 @@ mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 ###########################################
 ###############  SIGNALS  #################
 ########################################### 
-
+signals =[]
 ######### WW #########
 files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
 
 samples['WW'] = {
     'name': files,
-    'weight': mcCommonWeight + "* wwNLL",
+    'weight': mcCommonWeight ,
+    # 'weight': mcCommonWeight + "* wwNLL",
     'FilesPerJob': 30
 }
+signals.append('WW')
 
 ########## ggWW #########
 files = []
@@ -165,6 +167,21 @@ addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoMuNuTauNu", "1.0 / 0.0795"
 addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoTauNuENu", "1.0 / 0.0790")
 addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoTauNuMuNu", "1.0 / 0.0795")
 addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoTauNuTauNu", "1.0 / 0.0840")
+
+signals.append('ggWW')
+
+nbins = 4
+
+for sname in signals:
+  sample = samples[sname]
+  sample['subsamples'] = {}
+
+  sample['subsamples']['nonfid'] = '!(fid)'
+
+  for i in range(nbins):
+    #   sample['subsamples']['B%d'%i] = 'fid && B%d'%i
+    sample['subsamples'][f'B{i}'] =  f'fid && B{i}'
+
 
 ###########################################
 #############  BACKGROUNDS  ###############

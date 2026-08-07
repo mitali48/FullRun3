@@ -36,12 +36,29 @@ groupPlot['Fake']  = {
 }
 
 groupPlot['WW']  = {
-    'nameHR'   : 'WW',
+    'nameHR' : 'WW',
     'isSignal' : 0,
-    'color'    : 851,
+    'color': 851, # kAzure -9 
     'colorPlt': "#87cefa",
-    'samples'  : ['WW','ggWW']
+    'samples': [f'{sample}_B{i}' for sample in ('WW', 'ggWW') for i in range(nbins)]
 }
+
+
+groupPlot['WW_nonfid']  = {
+    'nameHR' : 'WW nonfid',
+    'isSignal' : 0,
+    'color': 853, # kAzure -9 
+    'colorPlt': "#009dff",
+    'samples'  : ['WW_nonfid', 'ggWW_nonfid']
+}
+
+# groupPlot['WW']  = {
+#     'nameHR'   : 'WW',
+#     'isSignal' : 0,
+#     'color'    : 851,
+#     'colorPlt': "#87cefa",
+#     'samples'  : ['WW','ggWW']
+# }
 
 groupPlot['VVV']  = {  
     'nameHR' : 'VVV',
@@ -101,19 +118,48 @@ plot['Top']  = {
     'scale'    : 1.0,
 }
 
-plot['WW']  = {
-    'color'    : 851,
-    'isSignal' : 0,
-    'isData'   : 0,
-    'scale'    : 1.0,
-}
+for i in range(nbins):
+    plot['WW_B{i}'] = {
+        'color': 851, # kAzure -9 
+        'isSignal' : 0,
+        'isData'   : 0,
+        'scale'    : 1.0  
+    }
 
-plot['ggWW']  = {
-    'color'    : 851,
+    plot['ggWW_B{i}'] = {
+        'color': 851, # kAzure -9 
+        'isSignal' : 0,
+        'isData'   : 0,
+        'scale'    : 1.0   
+    }
+
+plot['WW_nonfid'] = {
+    'color': 853, # kAzure -9 
     'isSignal' : 0,
     'isData'   : 0,
-    'scale'    : 1.0,
-}
+    'scale'    : 1.0   
+    }
+
+plot['ggWW_nonfid'] = {
+    'color': 853, # kAzure -9 
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0   
+    }
+
+# plot['WW']  = {
+#     'color'    : 851,
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scale'    : 1.0,
+# }
+
+# plot['ggWW']  = {
+#     'color'    : 851,
+#     'isSignal' : 0,
+#     'isData'   : 0,
+#     'scale'    : 1.0,
+# }
 plot['Vg']  = { 
     'color': 859,
     'isSignal' : 0,

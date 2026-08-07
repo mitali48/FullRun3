@@ -468,16 +468,16 @@ nuisances['QCDscale_ggWW'] = {
 #     'cutspost' : [cut for cut in total_cuts if '0j' in cut],
 # }
 
-nuisances['WWqscale0j']  = {
-    'name'  : 'CMS_ww_WWqscale_0j',
-    'skipCMS' : 1,
-    'kind'  : 'weight',
-    'type'  : 'shape',
-    'samples'  : {
-        'WW'   : ['nllW_Qup/wwNLL', 'nllW_Qdown/wwNLL'],
-    },
-    'cutspost' : [cut for cut in total_cuts if '0j' in cut],
-}
+# nuisances['WWqscale0j']  = {
+#     'name'  : 'CMS_ww_WWqscale_0j',
+#     'skipCMS' : 1,
+#     'kind'  : 'weight',
+#     'type'  : 'shape',
+#     'samples'  : {
+#         'WW'   : ['nllW_Qup/wwNLL', 'nllW_Qdown/wwNLL'],
+#     },
+#     'cutspost' : [cut for cut in total_cuts if '0j' in cut],
+# }
     # nuisances['WWresum1j']  = {
     #     'name'  : 'CMS_ww_WWresum_1j',
     #     'skipCMS' : 1,
@@ -488,16 +488,16 @@ nuisances['WWqscale0j']  = {
     #     },
     #     'cutspost' : [cut for cut in total_cuts if '1j' in cut],
     # }
-nuisances['WWqscale1j']  = {
-    'name'  : 'CMS_ww_WWqscale_1j',
-    'skipCMS' : 1,
-    'kind'  : 'weight',
-    'type'  : 'shape',
-    'samples'  : {
-        'WW'   : ['nllW_Qup/wwNLL', 'nllW_Qdown/wwNLL'],
-    },
-    'cutspost' : [cut for cut in total_cuts if '1j' in cut],
-}
+# nuisances['WWqscale1j']  = {
+#     'name'  : 'CMS_ww_WWqscale_1j',
+#     'skipCMS' : 1,
+#     'kind'  : 'weight',
+#     'type'  : 'shape',
+#     'samples'  : {
+#         'WW'   : ['nllW_Qup/wwNLL', 'nllW_Qdown/wwNLL'],
+#     },
+#     'cutspost' : [cut for cut in total_cuts if '1j' in cut],
+# }
 # nuisances['WWresum2j']  = {
 #     'name'  : 'CMS_ww_WWresum_2j',
 #     'skipCMS' : 1,
@@ -508,16 +508,16 @@ nuisances['WWqscale1j']  = {
 #     },
 #     'cutspost' : [cut for cut in total_cuts if '2j' in cut],
 # }
-nuisances['WWqscale2j']  = {
-    'name'  : 'CMS_ww_WWqscale_2j',
-    'skipCMS' : 1,
-    'kind'  : 'weight',
-    'type'  : 'shape',
-    'samples'  : {
-        'WW'   : ['nllW_Qup/wwNLL', 'nllW_Qdown/wwNLL'],
-    },
-    'cutspost' : [cut for cut in total_cuts if '2j' in cut],
-}
+# nuisances['WWqscale2j']  = {
+#     'name'  : 'CMS_ww_WWqscale_2j',
+#     'skipCMS' : 1,
+#     'kind'  : 'weight',
+#     'type'  : 'shape',
+#     'samples'  : {
+#         'WW'   : ['nllW_Qup/wwNLL', 'nllW_Qdown/wwNLL'],
+#     },
+#     'cutspost' : [cut for cut in total_cuts if '2j' in cut],
+# }
 # nuisances['WWresum3j']  = {
 #     'name'  : 'CMS_ww_WWresum_3j',
 #     'skipCMS' : 1,
@@ -531,16 +531,16 @@ nuisances['WWqscale2j']  = {
 
 
 
-nuisances['WWqscale3j']  = {
-    'name'  : 'CMS_ww_WWqscale_3j',
-    'skipCMS' : 1,
-    'kind'  : 'weight',
-    'type'  : 'shape',
-    'samples'  : {
-        'WW'   : ['nllW_Qup/wwNLL', 'nllW_Qdown/wwNLL'],
-    },
-    'cutspost' : [cut for cut in total_cuts if '3j' in cut],
-}
+# nuisances['WWqscale3j']  = {
+#     'name'  : 'CMS_ww_WWqscale_3j',
+#     'skipCMS' : 1,
+#     'kind'  : 'weight',
+#     'type'  : 'shape',
+#     'samples'  : {
+#         'WW'   : ['nllW_Qup/wwNLL', 'nllW_Qdown/wwNLL'],
+#     },
+#     'cutspost' : [cut for cut in total_cuts if '3j' in cut],
+# }
 
 
 ### Not applied cause already accounted in QCDScale  

@@ -14,11 +14,14 @@ ROOT.gSystem.Load("libGraf.so")
 # print(configurations)
 
 configurations = '/eos/home-m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3'
+macros = '/eos/home-m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/WW_Run3/FullRun3/extended'
 fakerates = '/eos/home-m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/utils/data/FakeRate/2024_v15_pt/'
 
 
 aliases = {}
 aliases = OrderedDict()
+
+print(">>> Loading aliases.py")
 
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
 mc_emb = [skey for skey in samples if skey not in ('Fake', 'DATA')]
@@ -195,15 +198,15 @@ aliases['zeroJet'] = {
 }
 
 aliases['oneJet'] = {
-    'expr': 'Alt(CleanJet_pt, 0, 0.0) > 30.0 && Alt(CleanJet_pt, 1, 0.0) < 30.0'
+    'expr': 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)<30.0 '
 }
 
 aliases['twoJet'] = {
-    'expr': 'Alt(CleanJet_pt, 0, 0.0) > 30.0 && Alt(CleanJet_pt, 1, 0.0) > 30.0 && Alt(CleanJet_pt, 2, 0.0) < 30.0'
+    'expr': 'Alt(CleanJet_pt,0, 0.0)>30.0 && Alt(CleanJet_pt,1, 0.0)>30.0 && Alt(CleanJet_pt,2, 0.0)<30.0'
 }
 
 aliases['multiJet'] = {
-    'expr': 'Sum(CleanJet_pt>30.0)==2'
+    'expr': 'Sum(CleanJet_pt>30.0)>=3'
 }
 
 aliases['noJetInHorn'] = {
@@ -216,6 +219,42 @@ aliases['mpmet'] = {
     'expr' : 'min(projtkmet, projpfmet)'
 }
 
+##########################################################################
+## Number of clean generator-level jets
+##########################################################################
+aliases['nCleanGenJets'] = {
+    'linesToAdd'     : [f'#include "{macros}/CleanGenJet.cc"'],
+    'linesToProcess' : ['ROOT.gInterpreter.Declare(\'CleanGenJet cleaner("njet");\')'],
+    'expr': 'cleaner(GenJet_pt, GenJet_eta, GenJet_phi, DressedLepton_pt, DressedLepton_eta, DressedLepton_phi, LeptonGen_isPrompt)',
+    'samples': ['WW', 'ggWW']
+}
+
+aliases['B0'] = {
+    'expr': 'nCleanGenJets == 0',
+    'samples': ['WW', 'ggWW']
+}
+
+aliases['B1'] = {
+    'expr': 'nCleanGenJets == 1',
+    'samples': ['WW', 'ggWW']
+}
+
+aliases['B2'] = {
+    'expr': 'nCleanGenJets == 2',
+    'samples': ['WW', 'ggWW']
+}   
+
+aliases['B3'] = {
+    'expr': 'nCleanGenJets >= 3',
+    'samples': ['WW', 'ggWW']
+}
+
+aliases['fid'] = {
+    'linesToAdd'     : [f'#include "{macros}/fiducial.cc"'],
+    'expr': 'Fiducial(DressedLepton_pt, DressedLepton_eta, DressedLepton_phi, DressedLepton_mass, DressedLepton_pdgId, LeptonGen_MotherPID)',
+    'samples': ['WW', 'ggWW']
+
+}
 ########################################################################
 # B-Tagging WP: https://btv-wiki.docs.cern.ch/ScaleFactors/Run3Summer23/
 ########################################################################
@@ -288,41 +327,86 @@ shift_str = '{"' + '","'.join(shifts) + '"}'
 
 for flavour in ['bc', 'light']:
     btagsf_tmp = 'btagSF_TMP_' + flavour
+
     aliases[btagsf_tmp] = {
-        'linesToProcess':[
-            f'ROOT.gSystem.Load("/eos/user/m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/WW_Run3/FullRun3/extended/evaluate_btagSF{flavour}_cc.so","", ROOT.kTRUE)',
-            f"ROOT.gInterpreter.Declare('btagSF{flavour} btag_SF{flavour} = btagSF{flavour}(\"/eos/user/m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/WW_Run3/FullRun3/data/btag_eff/bTagEff_2024_ttbar_loose.root\",\"{year}\",\"_parT\");')"
+        'linesToAdd': [ f'#include "{configurations}/extended/evaluate_btagSF{flavour}.cc"'],
+        'linesToProcess': [
+            f'''ROOT.gInterpreter.ProcessLine(
+                'btagSF{flavour} btag_SF{flavour} = btagSF{flavour}(
+                    "/eos/user/m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/WW_Run3/FullRun3/data/btag_eff/bTagEff_2024_ttbar_loose.root",
+                    "{year}",
+                    "_parT"
+                );'
+            )'''
         ],
-        'expr': f'btag_SF{flavour}(CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, nCleanJet, Jet_hadronFlavour, Jet_btag{bAlgo}, "L", {shift_str})',
-        'samples' : mc,
+
+        'expr': (
+            f'btag_SF{flavour}('
+            f'CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, '
+            f'nCleanJet, Jet_hadronFlavour, Jet_btag{bAlgo}, '
+            f'"L", {shift_str})'
+        ),
+
+        'samples': mc,
     }
-    for i in range(len(shifts)):
-        btagsf = 'btagSF' + flavour
-        if shifts[i] != 'central':
-            btagsf += '_' + shifts[i]
-        aliases[btagsf] = {
-            'expr': f"{btagsf_tmp}[{i}]",
-            'samples' : mc,
+
+    for i, shift in enumerate(shifts):
+        name = f'btagSF{flavour}'
+        if shift != 'central':
+            name += f'_{shift}'
+
+        aliases[name] = {
+            'expr': f'{btagsf_tmp}[{i}]',
+            'samples': mc,
         }
+
+# for flavour in ['bc', 'light']:
+#     btagsf_tmp = 'btagSF_TMP_' + flavour
+#     aliases[btagsf_tmp] = {
+#         'linesToProcess':[
+#             f'ROOT.gSystem.Load("/eos/user/m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/WW_Run3/FullRun3/extended/evaluate_btagSF{flavour}_cc.so","", ROOT.kTRUE)',
+#             f"ROOT.gInterpreter.Declare('btagSF{flavour} btag_SF{flavour} = btagSF{flavour}(\"/eos/user/m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/WW_Run3/FullRun3/data/btag_eff/bTagEff_2024_ttbar_loose.root\",\"{year}\",\"_parT\");')"
+#         ],
+#         'expr': f'btag_SF{flavour}(CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, nCleanJet, Jet_hadronFlavour, Jet_btag{bAlgo}, "L", {shift_str})',
+#         'samples' : mc,
+#     }
+#     for i in range(len(shifts)):
+#         btagsf = 'btagSF' + flavour
+#         if shifts[i] != 'central':
+#             btagsf += '_' + shifts[i]
+#         aliases[btagsf] = {
+#             'expr': f"{btagsf_tmp}[{i}]",
+#             'samples' : mc,
+#         }
 
 ##########################################################################
 # End of b tagging
 ##########################################################################
 
 # CR definition
+aliases['Onebtagcr'] = {
+    'expr': 'mll > 85 &&  ((zeroJet && !bVeto) || bReq1) && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
+}
+
+aliases['Twobtagcr'] = {
+    'expr': 'mll > 85 && bReq2 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
+}
 
 aliases['topcr'] = {
-    'expr': 'mll > 85 && ( ((zeroJet && !bVeto) || bReq1)  || bReq2 )  && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
+    'expr': 'mll > 85 && ( ((zeroJet && !bVeto) || bReq1)  || bReq2 ) && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
 }
 
 aliases['dycr'] = {
-    'expr': 'mll < 85 && ptll<30 && bVeto && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
+    'expr': 'ptll < 30 && mll < 85 && bVeto && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
 }
 
 aliases['sr'] = {
-    'expr': 'bVeto && mll>85 && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
+    'expr': 'mll > 85 && bVeto && Lepton_pdgId[0]*Lepton_pdgId[1] == -11*13',
 }
 
+aliases['nonpromptcr'] = {
+    'expr': 'bVeto && mll>85 && Lepton_pdgId[0]*Lepton_pdgId[1] == 11*13',
+}
 
 # Number of hard (= gen-matched) jets                                                                                                                                                                      
 aliases['nHardJets'] = {
