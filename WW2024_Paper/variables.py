@@ -17,9 +17,10 @@ variables['nvtx'] = {
 
 variables['mll'] = {
     'name': 'mll',    
-    'range' : (72,20,200), 
+    # 'range' : (72,20,200), 
+    'range' : (30,85,350),
     'xaxis' : 'm_{ll} [GeV]',
-    'fold' : 0
+    'fold' : 3
 }
 
 variables['mtWW'] = {
@@ -157,7 +158,7 @@ variables['jetpt1']  = {
     'name': 'Alt(CleanJet_pt, 0, -99)',
     'range' : (40,0,200),
     'xaxis' : 'p_{T} 1st jet',
-    'fold' : 0
+    'fold' : 3
 }
 
 variables['jetpt2']  = {
@@ -165,7 +166,7 @@ variables['jetpt2']  = {
     'name': 'Alt(CleanJet_pt, 1, -99)',
     'range' : (40,0,200),
     'xaxis' : 'p_{T} 2nd jet',
-    'fold' : 0
+    'fold' : 3
 }
 
 variables['jeteta1']  = {
@@ -173,7 +174,7 @@ variables['jeteta1']  = {
     'name': 'Alt(CleanJet_eta, 0, -99)',
     'range' : (30,-4.7,4.7),
     'xaxis' : '#eta 1st jet',
-    'fold' : 0
+    'fold' : 3
 }
 
 variables['jeteta2']  = {
@@ -181,7 +182,7 @@ variables['jeteta2']  = {
     'name': 'Alt(CleanJet_eta, 1, -99)',
     'range' : (30,-4.7,4.7),
     'xaxis' : '#eta 2nd jet',
-    'fold' : 0
+    'fold' : 3
 }
 
 """
