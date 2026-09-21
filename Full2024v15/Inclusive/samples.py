@@ -1,6 +1,10 @@
 from mkShapesRDF.lib.search_files import SearchFiles
+import os
+import inspect
+import sys
 
 searchFiles = SearchFiles()
+configurations = os.path.realpath(inspect.getfile(inspect.currentframe()))
 
 redirector = ""
 useXROOTD = False
@@ -83,6 +87,11 @@ def addSampleWeight(samples, sampleName, sampleNameType, weight):
     else:
         samples[sampleName]["name"].append((obj[0], obj[1], "(" + weight + ")"))
 
+# hxs_path = '/eos/user/m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/WW_Run3/FullRun3/utils/data/lhc-hxswg-YR5'
+# sys.path.append(hxs_path)
+# from HiggsXSection import HiggsXSection
+# HiggsXS = HiggsXSection()
+
 
 ################################################
 ############ DATA DECLARATION ##################
@@ -125,7 +134,7 @@ mcCommonWeight        = 'XSWeight*METFilter_Common*PromptGenLepMatch2l*SFweight'
 ###########################################
 ###############  SIGNALS  #################
 ########################################### 
-signals =[]
+
 ######### WW #########
 files = nanoGetSampleFiles(mcDirectory, 'WWTo2L2Nu')
 
@@ -135,7 +144,6 @@ samples['WW'] = {
     # 'weight': mcCommonWeight + "* wwNLL",
     'FilesPerJob': 30
 }
-signals.append('WW')
 
 ########## ggWW #########
 files = []
@@ -154,7 +162,7 @@ for label in [
 
 samples['ggWW'] = {
     'name': files,
-    'weight': mcCommonWeight + " * KFactor_ggWW * (49.63 / 1000)",
+    'weight': mcCommonWeight + " * 1.6 * (49.63 / 1000)",
     'FilesPerJob': 50
 }
 
@@ -167,20 +175,6 @@ addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoMuNuTauNu", "1.0 / 0.0795"
 addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoTauNuENu", "1.0 / 0.0790")
 addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoTauNuMuNu", "1.0 / 0.0795")
 addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoTauNuTauNu", "1.0 / 0.0840")
-
-signals.append('ggWW')
-
-nbins = 4
-
-for sname in signals:
-  sample = samples[sname]
-  sample['subsamples'] = {}
-
-  sample['subsamples']['nonfid'] = '!(fid)'
-
-  for i in range(nbins):
-    #   sample['subsamples']['B%d'%i] = 'fid && B%d'%i
-    sample['subsamples'][f'B{i}'] =  f'fid && B{i}'
 
 
 ###########################################
@@ -211,17 +205,13 @@ for label in [
         'TTTo2L2Nu',
         'TbarWplusto2L2Nu',
         'TWminusto2L2Nu',
-        'ST_t-channel_top',
-        'ST_t-channel_antitop',
-        'ST_s-channel_plus',
-        'ST_s-channel_minus'
         ]:
     files += nanoGetSampleFiles(mcDirectory, label)
 
 samples['Top'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 30
+    'FilesPerJob': 40
 }
 addSampleWeight(samples,'Top','TTTo2L2Nu','Top_pTrw')
 
@@ -273,59 +263,9 @@ samples['VgS'] = {
 }
 
 addSampleWeight(samples, 'VgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)"),
-addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0)"),
-addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0)"),
+addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)"),
+addSampleWeight(samples, 'VgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)"),
 addSampleWeight(samples, 'VgS', "WZTo3LNu", "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
-
-
-# #Zg        
-# files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50') + \
-#         nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50')
-
-# samples['Zg'] = {
-#     'name': files,
-#     'weight': mcCommonWeight + '*(Gen_ZGstar_mass <= 0)',
-#     'FilesPerJob': 30,
-# }
-
-# #Wg
-# files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J')
-
-# samples['Wg'] = {
-#     'name': files,
-#     'weight': mcCommonWeight1Match + '*(Gen_ZGstar_mass <= 0)',
-#     'FilesPerJob': 30,
-# }
-
-# #ZgS
-# files = nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-4to50') + \
-#         nanoGetSampleFiles(mcDirectory, 'DYGto2LG-1Jets_Bin-MLL-50')
-        
-
-# samples['ZgS'] = {
-#     'name': files,
-#     'weight': mcCommonWeight + '*(Gen_ZGstar_mass > 0)', #the photon is virtual we can reconstruct its mass
-#     'FilesPerJob': 80,
-# }
-
-
-
-# # addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-4to50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-# # addSampleWeight(samples, 'ZgS', "DYGto2LG-1Jets_Bin-MLL-50", "(Gen_ZGstar_mass > 0 && Gen_ZGstar_mass <= 4)")
-
-# # WgS
-# files = nanoGetSampleFiles(mcDirectory, 'WGtoLNuG-1J') + \
-#         nanoGetSampleFiles(mcDirectory, "WZTo3LNu")
-
-# samples['WgS'] = {
-#     'name': files,
-#     'weight': mcCommonWeight,
-#     'FilesPerJob': 80,
-# }
-
-# addSampleWeight(samples, 'WgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)")
-# addSampleWeight(samples, 'WgS', "WZTo3LNu",    "(Gen_ZGstar_mass >= 4 && Gen_ZGstar_mass < 50)")
-
 
 ########## Multibosons VVV #########
 files = nanoGetSampleFiles(mcDirectory, 'ZZZ') + \
@@ -339,22 +279,47 @@ samples['VVV'] = {
     'FilesPerJob': 50
 }
 
-###########################################
-###############  HWW  #################
-########################################### 
 
-samples['ggH_hww'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'GluGluHToWWTo2L2Nu_M125'),
-    # 'weight': mcCommonWeight ,
-    'weight': mcCommonWeight + ' * Weight2MINLO * 1092.7640/1073.2567',
-    'FilesPerJob': 50
-}
+# #####Higgs
+# files = []
+# for label in [
+#         "GluGluHToWWTo2L2Nu_M125",
+#         "VBFHToWWTo2L2Nu_M125",
+#         "GluGluHToTauTau_M125_Powheg",
+#         "VBFHToTauTau_M125",
+#         "ttHToNonbb_M125",
+#         "HWplusJ_HToWWTo2L2Nu_WToLNu_M125",
+#         "HWplusJ_HToWWTo2L2Nu_WTo2Q_M125",
+#         "HWminusJ_HToWWTo2L2Nu_WToLNu_M125",
+#         "HWminusJ_HToWWTo2L2Nu_WTo2Q_M125",
+#         "ZH_Zto2L_Hto2Wto2L2Nu_M125",
+#         "ZH_Zto2Q_Hto2Wto2L2Nu_M125",
+#         "GluGluZH_Zto2L_Hto2Wto2L2Nu_M125",
+#         "GluGluZH_Zto2Q_Hto2Wto2L2Nu_M125",]:
 
-samples['qqH_hww'] = {
-    'name': nanoGetSampleFiles(mcDirectory, 'VBFHToWWTo2L2Nu_M125'),
-    'weight': mcCommonWeight,
-    'FilesPerJob': 50
-}
+#     files += nanoGetSampleFiles(mcDirectory, label)
+
+# samples['Higgs'] = {
+#     'name' : files,
+#     'weight': mcCommonWeight,
+#     'FilesPerJob': 8
+# }
+
+# addSampleWeight(samples, 'Higgs', "GluGluHToWWTo2L2Nu_M125", "{HiggsXS.GetHiggsProdXS('ggH', '125.38')} / 51.960"),
+# addSampleWeight(samples, 'Higgs', "VBFHToWWTo2L2Nu_M125", "{HiggsXS.GetHiggsProdXS('vbfH', '125.38')} / 4.067"),
+# addSampleWeight(samples, 'Higgs', "GluGluHToTauTau_M125_Powheg", "{HiggsXS.GetHiggsProdXS('ggH', '125.38')} / 51.960"),
+# addSampleWeight(samples, 'Higgs', "VBFHToTauTau_M125", "{HiggsXS.GetHiggsProdXS('vbfH', '125.38')} / 4.067"),
+# addSampleWeight(samples, 'Higgs', "ttHToNonbb_M125", "{HiggsXS.GetHiggsProdXS('ttH', '125.38')} / 0.564"),
+# addSampleWeight(samples, 'Higgs', "HWplusJ_HToWWTo2L2Nu_WToLNu_M125", "{HiggsXS.GetHiggsProdXS('HWplus', '125.38')} / 0.8801"),
+# addSampleWeight(samples, 'Higgs', "HWplusJ_HToWWTo2L2Nu_WTo2Q_M125", "{HiggsXS.GetHiggsProdXS('HWplus', '125.38')} / 0.8801"),
+# addSampleWeight(samples, 'Higgs', "HWminusJ_HToWWTo2L2Nu_WToLNu_M125", "{HiggsXS.GetHiggsProdXS('HWminus', '125.38')} / 0.5620"),
+# addSampleWeight(samples, 'Higgs', "HWminusJ_HToWWTo2L2Nu_WTo2Q_M125", "{HiggsXS.GetHiggsProdXS('HWminus', '125.38')} / 0.5620"),
+# addSampleWeight(samples, 'Higgs', "ZH_Zto2L_Hto2Wto2L2Nu_M125", "{HiggsXS.GetHiggsProdXS('ZH', '125.38')} / 0.8014"),
+# addSampleWeight(samples, 'Higgs', "ZH_Zto2Q_Hto2Wto2L2Nu_M125", "{HiggsXS.GetHiggsProdXS('ZH', '125.38')} / 0.8014"),
+# addSampleWeight(samples, 'Higgs', "GluGluZH_Zto2L_Hto2Wto2L2Nu_M125", "{HiggsXS.GetHiggsProdXS('ggZH', '125.38')} / 0.1347"),
+# addSampleWeight(samples, 'Higgs', "GluGluZH_Zto2Q_Hto2Wto2L2Nu_M125", "{HiggsXS.GetHiggsProdXS('ggZH', '125.38')} / 0.1347")
+
+
 
 ###########################################
 ################## FAKE ###################
@@ -382,6 +347,11 @@ for _, sd in DataRun:
 
     samples['Fake']['name'].extend(files)
     addSampleWeight(samples, 'Fake', datatag, DataTrig[pd])
+
+    samples['Fake']['subsamples'] = {
+        'e': 'abs(Lepton_pdgId[1]) == 11',
+        'm': 'abs(Lepton_pdgId[1]) == 13'
+}
 
 ###########################################
 ################## DATA ###################

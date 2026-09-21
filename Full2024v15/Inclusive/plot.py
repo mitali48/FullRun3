@@ -32,33 +32,16 @@ groupPlot['Fake']  = {
     'isSignal' : 0,
     'color': 921,    # kGray + 1
     'colorPlt': "#778899",
-    'samples'  : ['Fake']
+    'samples'  : ['Fake_e', 'Fake_m']
 }
 
 groupPlot['WW']  = {
-    'nameHR' : 'WW',
+    'nameHR'   : 'WW',
     'isSignal' : 0,
-    'color': 851, # kAzure -9 
+    'color'    : 851,
     'colorPlt': "#87cefa",
-    'samples': [f'{sample}_B{i}' for sample in ('WW', 'ggWW') for i in range(nbins)]
+    'samples'  : ['WW','ggWW']
 }
-
-
-groupPlot['WW_nonfid']  = {
-    'nameHR' : 'WW nonfid',
-    'isSignal' : 0,
-    'color': 853, # kAzure -9 
-    'colorPlt': "#009dff",
-    'samples'  : ['WW_nonfid', 'ggWW_nonfid']
-}
-
-# groupPlot['WW']  = {
-#     'nameHR'   : 'WW',
-#     'isSignal' : 0,
-#     'color'    : 851,
-#     'colorPlt': "#87cefa",
-#     'samples'  : ['WW','ggWW']
-# }
 
 groupPlot['VVV']  = {  
     'nameHR' : 'VVV',
@@ -78,21 +61,13 @@ groupPlot['Vg']  = {
 #    'samples'  : ['Zg', 'Wg', 'ZgS', 'WgS']
 }
 
-groupPlot['ggF']  = {
-    'nameHR' : "ggF",
-    'isSignal' : 0,
-    'color'    : 623,
-    'colorPlt': "",
-    'samples'  : ['ggH_hww']
-}
-
-groupPlot['VBF']  = {
-    'nameHR' : "VBF",
-    'isSignal' : 0,
-    'color'    : 600,
-    'colorPlt': "",
-    'samples'  : ['qqH_hww']
-}
+# groupPlot['Higgs']  = {
+#     'nameHR' : "Higgs",
+#     'isSignal' : 0,
+#     'color'    : 623,
+#     'colorPlt': "",
+#     'samples'  : ['Higgs']
+# }
 
 plot = {}
 
@@ -104,7 +79,14 @@ plot['DY']  = {
     'scale'    : 1.0,
 }
 
-plot['Fake']  = {
+plot['Fake_e']  = {
+    'color': 921,    # kGray + 1
+    'isSignal' : 0,
+    'isData'   : 0,
+    'scale'    : 1.0
+}
+
+plot['Fake_m']  = { 
     'color': 921,    # kGray + 1
     'isSignal' : 0,
     'isData'   : 0,
@@ -118,48 +100,21 @@ plot['Top']  = {
     'scale'    : 1.0,
 }
 
-for i in range(nbins):
-    plot['WW_B{i}'] = {
-        'color': 851, # kAzure -9 
-        'isSignal' : 0,
-        'isData'   : 0,
-        'scale'    : 1.0  
-    }
-
-    plot['ggWW_B{i}'] = {
-        'color': 851, # kAzure -9 
-        'isSignal' : 0,
-        'isData'   : 0,
-        'scale'    : 1.0   
-    }
-
-plot['WW_nonfid'] = {
-    'color': 853, # kAzure -9 
+plot['WW'] = {
+    'color': 851, # kAzure -9 
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0   
     }
 
-plot['ggWW_nonfid'] = {
-    'color': 853, # kAzure -9 
+plot['ggWW'] = {
+    'color': 851, # kAzure -9 
     'isSignal' : 0,
     'isData'   : 0,
     'scale'    : 1.0   
     }
 
-# plot['WW']  = {
-#     'color'    : 851,
-#     'isSignal' : 0,
-#     'isData'   : 0,
-#     'scale'    : 1.0,
-# }
 
-# plot['ggWW']  = {
-#     'color'    : 851,
-#     'isSignal' : 0,
-#     'isData'   : 0,
-#     'scale'    : 1.0,
-# }
 plot['Vg']  = { 
     'color': 859,
     'isSignal' : 0,
@@ -173,35 +128,6 @@ plot['VgS']  = {
     'isData'   : 0,
     'scale'    : 1.0
 }
-
-
-# plot['Zg']  = { 
-#    'color': 859,
-#    'isSignal' : 0,
-#    'isData'   : 0,
-#    'scale'    : 1.0
-# }
-
-# plot['Wg']  = { 
-#    'color': 859, # kAzure -1  
-#    'isSignal' : 0,          
-#     'isData'   : 0, 
-#     'scale'    : 1.0
-# }
-
-# plot['ZgS']  = { 
-#    'color'    : 859, # kAzure -1  
-#    'isSignal' : 0,
-#    'isData'   : 0,
-#    'scale'    : 1.0
-# }
-
-# plot['WgS']  = { 
-#    'color'    : 859, # kAzure -1  
-#    'isSignal' : 0,
-#    'isData'   : 0,
-#    'scale'    : 1.0
-# }
 
 
 plot['WZ']  = {
@@ -225,17 +151,9 @@ plot['VVV']  = {
     'scale'    : 1.0
 }
 
-plot['qqH_hww'] = {
-    'nameHR' : 'qqH',
+plot['Higgs'] = {
+    'nameHR' : 'Higgs',
     'color': 632+1, # kRed+1 
-    'isSignal' : 0,
-    'isData'   : 0,    
-    'scale'    : 1    #
-}
-
-plot['ggH_hww'] = {
-    'nameHR' : 'ggH',
-    'color': 632, # kRed 
     'isSignal' : 0,
     'isData'   : 0,    
     'scale'    : 1    #

@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "Itr0"
+tag = "Itr2_dytt_variable_mll"
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -44,7 +44,7 @@ plotFile = "plot.py"
 structureFile = "structure.py"
 
 # nuisances file for mkDatacards and for mkShape
-nuisancesFile = "nuisances_ALL.py"
+nuisancesFile = "nuisances.py"
 
 # path to folder where to save plots
 plotPath = "/eos/user/" + os.getlogin()[0] + "/" + os.getlogin() +  "/www/FullRun3/Full2024v15/Plots_Inclusive/{}/".format(tag) 
