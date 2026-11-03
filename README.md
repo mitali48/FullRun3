@@ -11,24 +11,21 @@ This README describes the steps required to set up the environment, produce hist
 
 ## 1. Set up the `mkShapesRDF` environment
 
-We assume that `mkShapesRDF` and `PlotsConfigurationsRun3` are installed
+We assume that `mkShapesRDF` and `FullRun3` are installed
 in the same parent directory. For example:
 
 ``` text
 Run3/
 ├── mkShapesRDF/
-└── PlotsConfigurationsRun3/
+└── FullRun3/
 ```
 
 Navigate to the `mkShapesRDF` directory and initialise the environment:
 
 ``` bash
-cd ../../../mkShapesRDF/
+cd mkShapesRDF/
 source start.sh
-cd -
 ```
-
-The final `cd -` returns to the previous working directory.
 
 ------------------------------------------------------------------------
 
@@ -37,7 +34,7 @@ The final `cd -` returns to the previous working directory.
 Navigate to the analysis configuration directory:
 
 ``` bash
-cd Full2022EEv12/Inclusive
+cd FullRun3/Full2022EEv12/Inclusive
 ```
 
 > **Note:** Check the paths defined in the aliases and configuration files. 
