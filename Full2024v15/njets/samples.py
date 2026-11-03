@@ -104,7 +104,8 @@ DataRun = [
     ['F','Run2024F-Prompt-v1'],
     ['G','Run2024G-Prompt-v1'],
     ['H','Run2024H-Prompt-v1'],
-    ['I','Run2024I-Prompt-v1'],
+    ['Iv1','Run2024I-Prompt-v1'],
+    ['Iv2','Run2024I-Prompt-v2'],
 ]
 
 DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
@@ -164,7 +165,7 @@ for label in [
 
 samples['ggWW'] = {
     'name': files,
-    'weight': mcCommonWeight + " * 1.6 * (49.63 / 1000)",
+    'weight': mcCommonWeight + " * 1.4 * (49.63 / 1000)",
     'FilesPerJob': 50
 }
 
@@ -200,11 +201,7 @@ for sname in signals:
 ######### DY #########
 files = []
 for label in [
-        'DYto2E-2Jets_MLL-50',
-        'DYto2Mu-2Jets_MLL-50',
-        'DYto2Tau-2Jets_MLL-50',
-        'DYto2E-2Jets_MLL-10to50',
-        'DYto2Mu-2Jets_MLL-10to50',
+        'DYto2Tau-2Jets_MLL-50',                  #'DYto2E-2Jets_MLL-50','DYto2Mu-2Jets_MLL-50','DYto2E-2Jets_MLL-10to50','DYto2Mu-2Jets_MLL-10to50',
         'DYto2Tau-2Jets_MLL-10to50'
         ]:
     files += nanoGetSampleFiles(mcDirectory, label)
@@ -212,7 +209,7 @@ for label in [
 samples['DY'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 40
+    'FilesPerJob': 60
 }
 
 ########## Top #########
@@ -227,7 +224,7 @@ for label in [
 samples['Top'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 40
+    'FilesPerJob': 60
 }
 addSampleWeight(samples,'Top','TTTo2L2Nu','Top_pTrw')
 
@@ -265,7 +262,7 @@ samples['Vg'] = {
     'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
     'suppressNegative' :['all'],
     'suppressNegativeNuisances' :['all'],
-    'FilesPerJob':60,
+    'FilesPerJob':100,
 }
 ##########VgS#########
 files = files + nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
@@ -275,7 +272,7 @@ samples['VgS'] = {
     'weight': mcCommonWeight,
     'suppressNegative' :['all'],
     'suppressNegativeNuisances' :['all'],
-    'FilesPerJob': 60,
+    'FilesPerJob': 100,
 }
 
 addSampleWeight(samples, 'VgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)"),

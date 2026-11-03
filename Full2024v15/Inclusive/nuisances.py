@@ -289,7 +289,6 @@ nuisances['UE_CP5']  = {
 }
 
 ##rate parameters
-
 rateparams = {
     'DY': {
         'name': 'CMS_ww_DYttnorm',
@@ -299,6 +298,7 @@ rateparams = {
             '2j': cuts_maj2j,
         }
     },
+
     'Top': {
         'name': 'CMS_ww_Topnorm',
         'cuts': {
@@ -393,7 +393,7 @@ variations = ['Alt(LHEScaleWeight,0,1)',
 
 nuisances['QCDscale_top_ACCEPT']  = {
     'name'  : 'QCDscale_top_ACCEPT',
-    'skipCMS' : 1, 
+    'skipCMS' : 1,
     'kind'  : 'weight_envelope',
     'type'  : 'shape',
     'samples'  : {'Top' : variations}
@@ -438,3 +438,14 @@ nuisances['QCDscale_VVV_ACCEPT'] = {
     'samples' : {'VVV'  : variations}
 }
 
+autoStats = True
+if autoStats:
+    ## Use the following if you want to apply the automatic combine MC stat nuisances.
+    nuisances['stat'] = {
+        'type': 'auto',
+        'maxPoiss': '10',
+        'includeSignal': '0',
+        #  nuisance ['maxPoiss'] =  Number of threshold events for Poisson modelling
+        #  nuisance ['includeSignal'] =  Include MC stat nuisances on signal processes (1=True, 0=False)
+        'samples': {}
+    }

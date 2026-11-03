@@ -1,14 +1,6 @@
-# ============================================================
-# Structure for mkDatacards
-# ============================================================
+structure= {}
 
-structure = {}
-
-# ------------------------------------------------------------
-# Signal: WW / ggWW fiducial B categories
-# ------------------------------------------------------------
-
-for i in range(4):
+for i in range(nbins):
 
     structure[f'WW_B{i}'] = {
         'isSignal': 1,
@@ -20,11 +12,7 @@ for i in range(4):
         'isData': 0,
     }
 
-
-# ------------------------------------------------------------
-# Non-fiducial WW / ggWW
-# ------------------------------------------------------------
-
+    
 structure['WW_nonfid'] = {
     'isSignal': 1,
     'isData': 0,
@@ -35,10 +23,15 @@ structure['ggWW_nonfid'] = {
     'isData': 0,
 }
 
+# structure['WW'] = {
+#     'isSignal': 1,
+#     'isData': 0,
+# }
 
-# ------------------------------------------------------------
-# Backgrounds
-# ------------------------------------------------------------
+# structure['ggWW'] = {
+#     'isSignal': 1,
+#     'isData': 0,
+# }
 
 backgrounds = [
     'DY',
@@ -48,10 +41,11 @@ backgrounds = [
     'Vg',
     'VgS',
     'VVV',
-    'ggH_hww',
-    'qqH_hww',
-    'Fake',
+    'Fake_e',
+    'Fake_m'
 ]
+
+# 'Higgs',
 
 for sample in backgrounds:
     structure[sample] = {
@@ -60,11 +54,14 @@ for sample in backgrounds:
     }
 
 
-# ------------------------------------------------------------
-# Data
-# ------------------------------------------------------------
-
 structure['DATA'] = {
     'isSignal': 0,
     'isData': 1,
 }
+
+
+for nuis in nuisances.values():
+    if 'cutspost' in nuis:
+        print(nuis)
+        nuis['cuts'] = nuis['cutspost']
+        print(nuis)

@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "Itr3_nopromtWdeacy_taudecay"
+tag = "Itr5_bReq20GeV_Iv2"
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"
@@ -62,8 +62,8 @@ imports = ["os", "glob", ("collections", "OrderedDict"), "ROOT"]
 filesToExec = [
     samplesFile,
     aliasesFile,
-    variablesFile,
-    cutsFile,
+    cutsFile,         # <--- Moved cuts.py up here
+    variablesFile,    # <--- Now variables.py can see 'cuts' and 'cuts2j'
     plotFile,
     nuisancesFile,
     structureFile,

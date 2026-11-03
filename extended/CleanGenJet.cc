@@ -54,7 +54,7 @@ public:
             if (GenJet_pt[iJ] < 30.)
                 continue;
 
-            if (std::abs(GenJet_eta[iJ]) > 2.5)
+            if (std::abs(GenJet_eta[iJ]) > 4.7)
                 continue;
 
             bool cleanJet = true;

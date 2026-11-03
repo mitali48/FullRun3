@@ -11,8 +11,18 @@ dataSteps      = 'DATAl2loose2024v15__l2loose'
 treeBaseDir = '/eos/cms/store/group/phys_higgs/cmshww/amassiro/HWWNano/'
 limitFiles = -1
 
+mc = []
 
-mc = [skey for skey in samples if skey not in ('Fake', 'DATA')]
+for skey, sample in samples.items():
+    if skey in ('Fake', 'DATA'):
+        continue
+
+    mc.append(skey)
+
+    if 'subsamples' in sample:
+        for subkey in sample['subsamples']:
+            mc.append(f'{skey}_{subkey}')
+
 
 redirector = ""
 
@@ -289,50 +299,41 @@ nuisances['UE_CP5']  = {
 }
 
 ##rate parameters
-# SR-only cuts
-SRcuts0j = [c for c in cuts0j if 'SR' in c]
-SRcuts1j = [c for c in cuts1j if 'SR' in c]
-SRcuts2j = [c for c in cuts_maj2j if 'SR' in c]
-
-
 rateparams = {
     'DY': {
         'name': 'CMS_ww_DYttnorm',
         'cuts': {
-            '0j': SRcuts0j,
-            '1j': SRcuts1j,
-            '2j': SRcuts2j,
+            '0j': cuts0j,
+            '1j': cuts1j,
+            '2j': cuts_maj2j,
         }
     },
 
     'Top': {
         'name': 'CMS_ww_Topnorm',
         'cuts': {
-            '0j': SRcuts0j,
-            '1j': SRcuts1j,
-            '2j': SRcuts2j,
+            '0j': cuts0j,
+            '1j': cuts1j,
+            '2j': cuts_maj2j,
         }
     },
-
     'Fake_e': {
-        'name': 'CMS_ww_FakeEnorm',
+        'name': 'CMS_ww_Fakenorm',
         'cuts': {
-            '0j': SRcuts0j,
-            '1j': SRcuts1j,
-            '2j': SRcuts2j,
+            '0j': cuts0j,
+            '1j': cuts1j,
+            '2j': cuts_maj2j,
         }
     },
-
     'Fake_m': {
-        'name': 'CMS_ww_FakeMnorm',
+        'name': 'CMS_ww_Fakenorm',
         'cuts': {
-            '0j': SRcuts0j,
-            '1j': SRcuts1j,
-            '2j': SRcuts2j,
+            '0j': cuts0j,
+            '1j': cuts1j,
+            '2j': cuts_maj2j,
         }
     },
 }
-
 
 for process, config in rateparams.items():
     for jetcat, cut in config['cuts'].items():
@@ -344,30 +345,47 @@ for process, config in rateparams.items():
             'type': 'rateParam',
             'cuts': cut,
         }
+
 #######xPOG Information : # https://cms-xpog.docs.cern.ch/autoDoc/NanoAODv15/2024/doc_TTH-Hto2G_Par-M-125_TuneCP5_13p6TeV_amcatnloFXFX-pythia8_RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v2.html
 
 #########PS weights (w_var / w_nominal) [0] isr.murfac=2.0; [1] fsr.murfac=2.0; [2] isr.murfac=0.5; [3] fsr.murfac=0.5
 
+nuisances['PS_ISR']  = {
+    'name'    : 'PS_ISR',
+    'skipCMS' : 1,
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : dict((skey, ['PSWeight[2]', 'PSWeight[0]']) for skey in mc),
+    'AsLnN'   : '0',
+}
+nuisances['PS_FSR']  = {
+    'name'    : 'PS_FSR',
+    'skipCMS' : 1,
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : dict((skey, ['PSWeight[3]', 'PSWeight[1]']) for skey in mc),
+    'AsLnN'   : '0',
+}
 
-for ibin in ['0j','1j','2j']:
-    nuisances['PS_ISR_'+ibin]  = {
-        'name'    : 'PS_ISR_'+ibin,
-        'skipCMS' : 1,
-        'kind'    : 'weight',
-        'type'    : 'shape',
-        'samples' : dict((skey, ['PSWeight[2]', 'PSWeight[0]']) for skey in mc),
-        'cutspost' : [cut for cut in total_cuts if ibin in cut],
-        'AsLnN'   : '0',
-    }
-    nuisances['PS_FSR_'+ibin]  = {
-        'name'    : 'PS_FSR_'+ibin,
-        'skipCMS' : 1,
-        'kind'    : 'weight',
-        'type'    : 'shape',
-        'samples' : dict((skey, ['PSWeight[3]', 'PSWeight[1]']) for skey in mc),
-        'cutspost' : [cut for cut in total_cuts if ibin in cut],
-        'AsLnN'   : '0',
-    }
+# for ibin in ['0j','1j','2j']:
+#     nuisances['PS_ISR_'+ibin]  = {
+#         'name'    : 'PS_ISR_'+ibin,
+#         'skipCMS' : 1,
+#         'kind'    : 'weight',
+#         'type'    : 'shape',
+#         'samples' : dict((skey, ['PSWeight[2]', 'PSWeight[0]']) for skey in mc),
+#         'cutspost' : [cut for cut in total_cuts if ibin in cut],
+#         'AsLnN'   : '0',
+#     }
+#     nuisances['PS_FSR_'+ibin]  = {
+#         'name'    : 'PS_FSR_'+ibin,
+#         'skipCMS' : 1,
+#         'kind'    : 'weight',
+#         'type'    : 'shape',
+#         'samples' : dict((skey, ['PSWeight[3]', 'PSWeight[1]']) for skey in mc),
+#         'cutspost' : [cut for cut in total_cuts if ibin in cut],
+#         'AsLnN'   : '0',
+#     }
 
 # variations = [ 'PSWeight[0]','PSWeight[1]','PSWeight[2]','PSWeight[3]']
 # for skey in mc:

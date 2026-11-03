@@ -104,7 +104,8 @@ DataRun = [
     ['F','Run2024F-Prompt-v1'],
     ['G','Run2024G-Prompt-v1'],
     ['H','Run2024H-Prompt-v1'],
-    ['I','Run2024I-Prompt-v1'],
+    ['Iv1','Run2024I-Prompt-v1'],
+    ['Iv2','Run2024I-Prompt-v2'],
 ]
 
 DataSets = ['MuonEG','Muon0','Muon1','EGamma0','EGamma1']
@@ -176,7 +177,6 @@ addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoTauNuENu", "1.0 / 0.0790")
 addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoTauNuMuNu", "1.0 / 0.0795")
 addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoTauNuTauNu", "1.0 / 0.0840")
 
-
 ###########################################
 #############  BACKGROUNDS  ###############
 ###########################################
@@ -184,11 +184,7 @@ addSampleWeight(samples, 'ggWW', "GluGlutoContintoWWtoTauNuTauNu", "1.0 / 0.0840
 ######### DY #########
 files = []
 for label in [
-        'DYto2E-2Jets_MLL-50',
-        'DYto2Mu-2Jets_MLL-50',
-        'DYto2Tau-2Jets_MLL-50',
-        'DYto2E-2Jets_MLL-10to50',
-        'DYto2Mu-2Jets_MLL-10to50',
+        'DYto2Tau-2Jets_MLL-50',                  #'DYto2E-2Jets_MLL-50','DYto2Mu-2Jets_MLL-50','DYto2E-2Jets_MLL-10to50','DYto2Mu-2Jets_MLL-10to50',
         'DYto2Tau-2Jets_MLL-10to50'
         ]:
     files += nanoGetSampleFiles(mcDirectory, label)
@@ -196,7 +192,7 @@ for label in [
 samples['DY'] = {
     'name': files,
     'weight': mcCommonWeight,
-    'FilesPerJob': 40
+    'FilesPerJob': 60
 }
 
 ########## Top #########
@@ -249,7 +245,7 @@ samples['Vg'] = {
     'weight': mcCommonWeightNoMatch + '*(Gen_ZGstar_mass <= 0)',
     'suppressNegative' :['all'],
     'suppressNegativeNuisances' :['all'],
-    'FilesPerJob':60,
+    'FilesPerJob':100,
 }
 ##########VgS#########
 files = files + nanoGetSampleFiles(mcDirectory, 'WZTo3LNu')
@@ -259,7 +255,7 @@ samples['VgS'] = {
     'weight': mcCommonWeight,
     'suppressNegative' :['all'],
     'suppressNegativeNuisances' :['all'],
-    'FilesPerJob': 60,
+    'FilesPerJob': 100,
 }
 
 addSampleWeight(samples, 'VgS', "WGtoLNuG-1J", "(Gen_ZGstar_mass > 0  && Gen_ZGstar_mass < 4)"),
@@ -280,7 +276,7 @@ samples['VVV'] = {
 }
 
 
-# #####Higgs
+#####Higgs
 # files = []
 # for label in [
 #         "GluGluHToWWTo2L2Nu_M125",

@@ -45,9 +45,9 @@ bool Fiducial(
     // if (std::abs(LeptonGen_MotherPID[iL]) == 15)
     //     continue;
 
-    // Require direct W decay
-    if (std::abs(LeptonGen_MotherPID[iL]) != 24)
-        continue;
+    // // Require direct W decay
+    // if (std::abs(LeptonGen_MotherPID[iL]) != 24)
+    //     continue;
 
     iPromptL.emplace_back(iL);
 }

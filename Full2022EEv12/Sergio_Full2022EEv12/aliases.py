@@ -1,7 +1,10 @@
-
 import os
 import copy
 import inspect
+import ROOT
+
+ROOT.gSystem.Load("libGpad.so")
+ROOT.gSystem.Load("libGraf.so")
 
 configurations = os.path.realpath(inspect.getfile(inspect.currentframe())) # this file
 

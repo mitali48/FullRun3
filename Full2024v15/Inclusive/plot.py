@@ -151,13 +151,13 @@ plot['VVV']  = {
     'scale'    : 1.0
 }
 
-plot['Higgs'] = {
-    'nameHR' : 'Higgs',
-    'color': 632+1, # kRed+1 
-    'isSignal' : 0,
-    'isData'   : 0,    
-    'scale'    : 1    #
-}
+# plot['Higgs'] = {
+#     'nameHR' : 'Higgs',
+#     'color': 632+1, # kRed+1 
+#     'isSignal' : 0,
+#     'isData'   : 0,    
+#     'scale'    : 1    #
+# }
 
 # data
 plot['DATA']  = { 

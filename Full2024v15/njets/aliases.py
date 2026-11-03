@@ -107,15 +107,15 @@ aliases['bVeto'] = {
 }
 
 aliases['bReq'] = { 
-    'expr': f'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) >= 1'
+    'expr': f'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) >= 1'
 }
 
 aliases['bReq1'] = {
-    'expr': f'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 1'
+    'expr': f'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 1'
 }
 
 aliases['bReq2'] = {
-    'expr': f'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 2'
+    'expr': f'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 2'
 }
 eff_map_year = '2024' # ['2022', '2022EE', '2023', '2023BPix']
 year = 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15' # ['Run3-22CDSep23-Summer22-NanoAODv12', 'Run3-22EFGSep23-Summer22EE-NanoAODv12, 'Run3-23CSep23-Summer23-NanoAODv12', 'Run3-23DSep23-Summer23BPix-NanoAODv12', 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15']
@@ -167,38 +167,36 @@ aliases['noJetInHorn'] = {
 ##########################################################################
 ## Number of clean generator-level jets
 ##########################################################################
-aliases['nCleanGenJets'] = {
-    'linesToAdd'     : [f'#include "{extended}/CleanGenJet.cc"'],
-    'linesToProcess' : ['ROOT.gInterpreter.Declare(\'CleanGenJet cleaner("njet");\')'],
-    'expr': 'cleaner(GenJet_pt, GenJet_eta, GenJet_phi, DressedLepton_pt, DressedLepton_eta, DressedLepton_phi, LeptonGen_isPrompt)',
+
+aliases['fid'] = {
+    'linesToAdd'     : [f'#include "{extended}/fiducial_script.cc"'],
+    # 'expr': 'FiducialGen(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_status, GenPart_genPartIdxMother)',
+    'expr': 'FiducialGen(GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenDressedLepton_mass, GenDressedLepton_pdgId, GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_status, GenPart_genPartIdxMother)',
+    'samples': ['WW', 'ggWW']
+}
+
+aliases['nGenJetFiducial'] = {
+    'linesToAdd': [ f'#include "{extended}/fiducial_script.cc"'],
+    # 'expr': 'GetNGenJets(GenPart_pt, GenPart_eta, GenPart_phi, GenPart_mass, GenPart_pdgId, GenPart_status, GenPart_genPartIdxMother)',
+    # 'expr': 'GetNGenJets(GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenDressedLepton_mass, DressedLepton_pdgId, GenDressedLepton_hasTauAnc, GenPart_pt, GenPart_eta, GenPart_phi, GenPart_pdgId, GenPart_status, GenPart_genPartIdxMother, GenJet_pt, GenJet_eta, GenJet_phi)',
+    'expr': 'GetNGenJets(GenDressedLepton_pt, GenDressedLepton_eta, GenDressedLepton_phi, GenJet_pt, GenJet_eta, GenJet_phi)',
     'samples': ['WW', 'ggWW']
 }
 
 aliases['B0'] = {
-    'expr': 'nCleanGenJets == 0',
+    'expr': 'nGenJetFiducial == 0',
     'samples': ['WW', 'ggWW']
 }
 
 aliases['B1'] = {
-    'expr': 'nCleanGenJets == 1',
+    'expr': 'nGenJetFiducial == 1',
     'samples': ['WW', 'ggWW']
 }
 
 aliases['B2'] = {
-    'expr': 'nCleanGenJets >= 2',
+    'expr': 'nGenJetFiducial >= 2',
     'samples': ['WW', 'ggWW']
 }   
-
-aliases['B3'] = {
-    'expr': 'nCleanGenJets >= 3',
-    'samples': ['WW', 'ggWW']
-}
-
-aliases['fid'] = {
-    'linesToAdd'     : [f'#include "{extended}/fiducial.cc"'],
-    'expr': 'Fiducial(DressedLepton_pt, DressedLepton_eta, DressedLepton_phi, DressedLepton_mass, DressedLepton_pdgId, LeptonGen_MotherPID)',
-    'samples': ['WW', 'ggWW']
-}
 
 
 # custom variables 

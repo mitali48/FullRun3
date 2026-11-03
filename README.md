@@ -1,135 +1,269 @@
-# W polarization in Higgs to WW
+# WW Cross-Section Measurement
 
-This is the configuration for the analysis which is part of HIG-24-005. Measurement of the double polarization of W pairs in HWW events. Different flavor leptonic decay channel is targeted, in final states with 0, 1, or 2 jets. Both ggF and VBF production modes.
+This repository contains the configuration and workflow for the WW cross-section measurement, part of **SMP-XX-XXX**.
 
-The instructions to run the analysis follow.
+The analysis targets the opposite-sign, different-flavour dilepton final state (electron--muon channel), considering events with **0, 1, and 2
+jets**.
 
-### Load the mkShapesRDF environment
+This README describes the steps required to set up the environment, produce histograms, prepare and combine datacards, create the statistical workspace, and perform the signal-strength and nuisance-parameter impact fits.
 
-Here, we assume `PlotsConfigurationsRun3` was installed in the same directory as `mkShapesRDF`. E.g., let's assume we have a `Run3` directory where we installed both `mkShapesRDF` and `PlotsConfigurationsRun3`.
+------------------------------------------------------------------------
 
-Then, we can source the `mkShapesRDF` environment using these commands:
+## 1. Set up the `mkShapesRDF` environment
 
-    cd ../../../mkShapesRDF/
+We assume that `mkShapesRDF` and `PlotsConfigurationsRun3` are installed
+in the same parent directory. For example:
 
-    source start.sh
+``` text
+Run3/
+├── mkShapesRDF/
+└── PlotsConfigurationsRun3/
+```
 
-    cd -
+Navigate to the `mkShapesRDF` directory and initialise the environment:
 
-### Compiling the macros 
+``` bash
+cd ../../../mkShapesRDF/
+source start.sh
+cd -
+```
 
-The macros are placed in `extended` directory. First navigate to the directory:
+The final `cd -` returns to the previous working directory.
 
-    cd extended
+------------------------------------------------------------------------
 
-Compile the necessary files using `python`. Inside the python prompt:
+## 2. Histogram production
 
-    import ROOT
-    ROOT.gROOT.ProcessLineSync(".L ggww_kfactor.cc+")
+Navigate to the analysis configuration directory:
 
+``` bash
+cd Full2022EEv12/Inclusive
+```
 
-### Produce distributions using mkShapesMulti.py in batch mode
+> **Note:** Check the paths defined in the aliases and configuration files. 
+> Update them if necessary to match your local environment and username.
 
-**Warning: Probably the paths under aliases and configuration needs to be revisited and modified for your username**
+### 2.1 Compile the configuration
 
-Compile the configuration. Do it after every change to any file in this directory:
+Compile the configuration and save the compiled JSON configuration:
 
-    mkShapesRDF -c 1
+``` bash
+mkShapesRDF -c 1
+```
 
-Produce histograms using batch:
+Repeat this step whenever a configuration file is modified. 
 
-    mkShapesRDF -c 1 -o 0 -f . -b 1
+### 2.2 Run a local test
 
-Check jobs status:
+For a quick test, run the analysis locally and process only two events:
 
-    mkShapesRDF -o 1 -f .
+``` bash
+mkShapesRDF -c 1 -o 0 -f . -b 0 -l 2
+```
 
-Resubmit failed jobs:
+This is useful for checking the configuration, selections, event weights, and histogram production before running over the full samples.
 
-    mkShapesRDF -o 1 -f . -r 1		 		
+### 2.3 Produce histograms using HTCondor
 
-Merge rootfiles:
+Submit histogram-production jobs to the HTCondor batch system:
 
-    mkShapesRDF -o 2 -f .
+``` bash
+mkShapesRDF -c 1 -o 0 -f . -b 1
+```
 
-**Important**
+The submission flag is also available:
 
-Combine Signal+Background+Interference into single process for ggF and VBF:
+``` bash
+mkShapesRDF --submit
+```
 
-    python doCompleteGGF.py
+The `--submit` form relies on the command's default values for options. If "submit" is triggered, override the operation mode and just "submit" to batch system the creation of histograms
 
-Process the envelope uncertainties to get Up/Down variations:
+### 2.4 Check the batch-job status
 
-    python doProcessEnvelope.py
+Check the status of submitted jobs:
 
-Process tau-embedded veto uncertainties:
+``` bash
+mkShapesRDF -o 1 -f .
+```
 
-    python doVetoUncertainty.py
+### 2.5 Resubmit failed jobs
 
-Get the ggToWW (S+B+I) scale variation uncertainty as a function of the amount of ggWW. Copy the output in nuisances_ALL.py:
+Resubmit jobs that finished with errors:
 
-    python doGluGluRatios.py
+``` bash
+mkShapesRDF -o 1 -f . -r 1
+```
 
+Here, `-r 1` selects finished jobs with errors for resubmission.
 
-Plot distributions:
+### 2.6 Merge ROOT files
 
-    mkPlot ....
+After the batch jobs have completed successfully, merge the output ROOT files:
 
-Produce datacards. Here, using the correct normalization for the signals:
+``` bash
+mkShapesRDF -o 2 -f .
+```
 
-    mkDatacards
+Alternatively, use the histogram-addition flag:
 
-Combine datacards:
+``` bash
+mkShapesRDF --histoadd
+```
 
-    cp combine/HiggsHelicity.py $HOME/work/combine/CMSSW_11_3_4/src/HiggsAnalysis/CombinedLimit/python/
+### 2.7 Plot distributions
 
-    cp combine/doAnalysis.sh $HOME/work/combine/CMSSW_11_3_4/src/
+Produce the configured distributions:
 
-    cmssw-cc7
+``` bash
+mkPlot --onlyPlot cratio --showIntegralLegend 1 --fileFormats png
+```
 
-    cd $HOME/work/combine/CMSSW_11_3_4/src/;cmsenv;cd -;ulimit -s unlimited
+------------------------------------------------------------------------
 
-    scram b -j 4
+## 3. Datacard production
 
-    ./doAnalysis.sh
+Generate datacards for the required variables using `mkDatacard`.
 
-Fit data to get impacts:
+Specify the output directory and the variables for which datacards should be produced:
 
-    text2workspace.py datacard_combined.txt -m 125 -P HiggsAnalysis.CombinedLimit.HiggsHelicity:higgshelicity --PO doOnlyPolarization -o datacard_combined.root
+``` bash
+mkDatacard \
+    --outputDirDatacard /eos/user/m/misharma/mkShapesRDF_rootfiles/FullRun3/Full2022EEv12/Inclusive/Itr0_bReq20/datacards/ \
+    --onlyVariables events
+```
 
-    combineTool.py -M Impacts -d datacards/datacard_combined.root -m 125 -t -1 --X-rtd MINIMIZER_analytic --cminDefaultMinimizerStrategy=0 --setParameters r_LL=1,r_TT=1 --redefineSignalPOIs r_LL,r_TT --setParameterRanges r_LL=0,4:r_TT=0,4 --doInitialFit
+In this example:
 
-    combineTool.py -M Impacts -d datacards/datacard_combined.root -m 125 -t -1 --X-rtd MINIMIZER_analytic --cminDefaultMinimizerStrategy=0 --setParameters r_LL=1,r_TT=1 --redefineSignalPOIs r_LL,r_TT --setParameterRanges r_LL=0,4:r_TT=0,4 --doFits --job-mode=interactive --parallel=10
+-   **Output directory:** Location where the datacards will be stored.
+-   **Variable:** `events`, used for the inclusive cross-section
+    measurement.
 
-    combineTool.py -M Impacts -d datacards/datacard_combined.root -m 125 -t -1 --X-rtd MINIMIZER_analytic --cminDefaultMinimizerStrategy=0 --setParameters r_LL=1,r_TT=1 --redefineSignalPOIs r_LL,r_TT --setParameterRanges r_LL=0,4:r_TT=0,4 -o impacts.json
+Update the output path to match your own EOS directory and production, default location is the current directory.
 
-    plotImpacts.py -i impacts.json -o impacts --POI r_LL
+------------------------------------------------------------------------
 
-    plotImpacts.py -i impacts.json -o impacts --POI r_TT
+## 4. Datacard preparation and combination
 
-If you want to submit the jobs to HTCondor:
+The script `utils/scripts/inclusive_xsec.sh` is used to prepare and combine the datacards for the inclusive cross-section measurement.
 
-   combineTool.py -M Impacts -d datacard_combined.root -m 125 -t -1 --X-rtd MINIMIZER_analytic --cminDefaultMinimizerStrategy=0 --setParameters r_LL=1,r_TT=1 --redefineSignalPOIs r_LL,r_TT --setParameterRanges r_LL=0,4:r_TT=0,4 --doInitialFit
+### 4.1 Configure the inputs
 
-    combineTool.py -M Impacts -d datacard_combined.root -m 125 -t -1 --X-rtd MINIMIZER_analytic --cminDefaultMinimizerStrategy=0 --setParameters r_LL=1,r_TT=1 --redefineSignalPOIs r_LL,r_TT --setParameterRanges r_LL=0,4:r_TT=0,4 --doFits --job-mode=condor --parallel=1
+Before running the script, check the following inputs in `inclusive_xsec.sh`:
 
-    combineTool.py -M Impacts -d datacard_combined.root -m 125 -t -1 --X-rtd MINIMIZER_analytic --cminDefaultMinimizerStrategy=0 --setParameters r_LL=1,r_TT=1 --redefineSignalPOIs r_LL,r_TT --setParameterRanges r_LL=0,4:r_TT=0,4 -o impacts.json
+-   **`CMSSW_BASE` / Combine environment:** Ensure that the intended CMSSW release is active and that the Combine tools are available.
+    Follow the [Combine installation instructions](https://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/latest/#within-cmssw-recommended-for-cms-users) if needed.
+-   **`CARDDIR`:** Set this to the directory containing the input datacards.
 
-    plotImpacts.py -i impacts.json -o impacts --POI r_LL
+### 4.2 Run the script
 
-    plotImpacts.py -i impacts.json -o impacts --POI r_TT
+From the repository's top-level directory, and outise the mkShapesRDF env execute:
 
-Generate 2D likelihood scans:
+``` bash
+bash utils/scripts/inclusive_xsec.sh
+```
 
-    combine -M MultiDimFit --algo grid --points 1000 --setParameters r_LL=1,r_TT=1 --redefineSignalPOIs r_LL,r_TT --setParameterRanges r_LL=0,4:r_TT=0,4 -t -1 --X-rtd MINIMIZER_analytic --cminDefaultMinimizerStrategy=0 --verbose 1 -d datacards_HWW_2018/datacard_combined.root -m 125
+Alternatively,
 
-    or
+``` bash
+./utils/scripts/inclusive_xsec.sh
+```
 
-    combine -M MultiDimFit --algo grid --points 1000 --setParameters r_LL=1,r_TT=1 --redefineSignalPOIs r_LL,r_TT --setParameterRanges r_LL=0,4:r_TT=0,4 -t -1 --X-rtd MINIMIZER_analytic --cminDefaultMinimizerStrategy=0 --verbose 1 -d datacards_HWW_2018/datacard_combined.root -m 125 --job-mode=condor --split-points 1
+Inspect the script to confirm the names and locations of the combined datacard outputs before proceeding.
 
+------------------------------------------------------------------------
 
-Once you have the likelihhod scans you can run the code in the notebook to produce the plots using the CAT recommended style for figures 
+## 5. Workspace creation and signal-strength measurement
 
+After preparing the combined datacard, create a statistical workspace using `text2workspace.py`.
 
+The `multiSignalModel` configuration below maps both `WW` and `ggWW` to the same parameter, `r`. Consequently, the fit uses a **common
+signal-strength modifier** for these two processes.
 
+### 5.1 Create the workspace
 
+``` bash
+text2workspace.py -P HiggsAnalysis.CombinedLimit.PhysicsModel:multiSignalModel \
+    --PO verbose \
+    --PO 'map=.*/WW:r[1,0,3]' \
+    --PO 'map=.*/ggWW:r[1,0,3]' \
+    datacard_inclusive.txt \
+    -o workspace_inclusive.root
+```
+
+The parameter `r` has an initial value of 1 and is allowed to vary between 0 and 3 in the workspace.
+
+### 5.2 Perform the signal-strength fit
+
+Run `MultiDimFit` to extract the best-fit signal strength:
+
+``` bash
+combine -M MultiDimFit workspace_inclusive.root \
+    --algo=singles \
+    --robustFit=1 \
+    --redefineSignalPOIs r \
+    --setParameters r=1 \
+    --setParameterRanges r=0.8,1.2 \
+    -t -1
+```
+
+The `-t -1` option runs an expected fit using the Asimov dataset. The parameter range specified here restricts the fit to `0.8 <= r <= 1.2`.
+
+------------------------------------------------------------------------
+
+## 6. Nuisance-parameter impact estimation
+
+Use the Combine Impacts workflow to evaluate the impact of individual nuisance parameters on the fitted signal strength.
+
+### 6.1 Perform the initial fit
+
+``` bash
+combineTool.py -M Impacts \
+    -d workspace_inclusive.root \
+    -m 125 -n Test \
+    --doInitialFit \
+    -t -1 --expectSignal 1 \
+    --robustFit 1
+```
+
+### 6.2 Fit individual nuisance parameters
+
+``` bash
+combineTool.py -M Impacts \
+    -d workspace_inclusive.root \
+    -m 125 -n Test \
+    --doFit \
+    -t -1 --expectSignal 1 \
+    --robustFit 1 \
+    --job-mode=interactive \
+    --parallel=10
+```
+
+### 6.3 Collect the impact results
+
+``` bash
+combineTool.py -M Impacts \
+    -d workspace_inclusive.root \
+    -m 125 -n Test \
+    --output json_inclusive.json \
+    -t -1 --expectSignal 1 \
+    --robustFit 1
+```
+
+### 6.4 Plot the impacts
+
+``` bash
+plotImpacts.py \
+    -i json_inclusive.json \
+    -o impacts_inclusive
+```
+
+This produces the nuisance-parameter impact plot, showing how individual nuisance parameters affect the fitted signal strength.
+
+------------------------------------------------------------------------
+
+## 7. References
+
+-   [mkShapesRDF](https://github.com/latinos/mkShapesRDF)
+-   [Combine ---
+    HiggsAnalysis-CombinedLimit](https://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/latest/)

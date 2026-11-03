@@ -101,22 +101,26 @@ tagger = 'UParTAK4'
 # Access information from dictionaries
 bWP   = btagging_WPs[bAlgo][WP]
 
-# B tagging selections and scale factors
-aliases['bVeto'] = {
-    'expr': f'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 0'
-}
 
-aliases['bReq'] = { 
-    'expr': f'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) >= 1'
-}
 
-aliases['bReq1'] = {
-    'expr': f'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 1'
-}
+#################
+### B-tagging ###
+#################
 
-aliases['bReq2'] = {
-    'expr': f'Sum(CleanJet_pt > 30. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 2'
-}
+# Fixed BTV wp
+
+# btagging MC efficiencies and SFs are read through the btagSF{flavour} object:
+# - the first argument is the MC btagging efficiency root file
+# - the second argument is the year from which SFs are retrieved from the POG/BTV json-pog correctionlib directory; 
+#   allowed options are = ['2022_Summer22', '2022_Summer22EE', '2023_Summer23', '2023_Summer23BPix']
+# The btagSF{flavour}_{shift} constructor executes the actual computation
+# In this you specify the WP for the computation and the tagger using the WP_eval and tagger strings.
+
+# We assume that you heve the efficiency maps root files in your configuration, as well as the evaluation macros
+# If this is not the case, swap configurations with the proper path
+
+# path = "your/path"
+
 eff_map_year = '2024' # ['2022', '2022EE', '2023', '2023BPix']
 year = 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15' # ['Run3-22CDSep23-Summer22-NanoAODv12', 'Run3-22EFGSep23-Summer22EE-NanoAODv12, 'Run3-23CSep23-Summer23-NanoAODv12', 'Run3-23DSep23-Summer23BPix-NanoAODv12', 'Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15']
 
@@ -131,6 +135,23 @@ for flavour in ['bc', 'light']:
             'expr': f'btagSF{flavour}_{shift}(CleanJet_pt, CleanJet_eta, CleanJet_jetIdx, nCleanJet, Jet_hadronFlavour, Jet_btag{bAlgo}, "{WP_eval}", "{shift}", "{tagger}","{eff_map_year}")',
             'samples' : mc,
         }
+# B tagging selections and scale factors
+aliases['bVeto'] = {
+    'expr': f'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 0'
+}
+
+aliases['bReq'] = { 
+    'expr': f'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) >= 1'
+}
+
+aliases['bReq1'] = {
+    'expr': f'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 1'
+}
+
+aliases['bReq2'] = {
+    'expr': f'Sum(CleanJet_pt > 20. && abs(CleanJet_eta) < 2.5 && Take(Jet_btag{bAlgo}, CleanJet_jetIdx) > {bWP}) == 2'
+}
+
 
 ##########################################################################
 # End of b tagging
