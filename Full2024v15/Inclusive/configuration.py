@@ -1,7 +1,7 @@
 import sys,os
 
 #: tag used to identify the configuration folder version
-tag = "Itr3_bReq20_samples_Higgs_DYtautau"
+tag = "Itr5_TheoUncNorm_QCDscale_WW"
 
 #: file to use as runner script, default uses mkShapesRDF.shapeAnalysis.runner, otherwise specify path to script
 runnerFile = "default"

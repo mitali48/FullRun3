@@ -355,7 +355,7 @@ nuisances['PS_ISR']  = {
     'skipCMS' : 1,
     'kind'    : 'weight',
     'type'    : 'shape',
-    'samples' : dict((skey, ['PSWeight[2]', 'PSWeight[0]']) for skey in mc),
+    'samples' : dict((skey, ['PSWeight[2]', 'PSWeight[0]']) for skey in mc if skey not in ['WW', 'ggWW']),
     'AsLnN'   : '0',
 }
 nuisances['PS_FSR']  = {
@@ -363,15 +363,60 @@ nuisances['PS_FSR']  = {
     'skipCMS' : 1,
     'kind'    : 'weight',
     'type'    : 'shape',
-    'samples' : dict((skey, ['PSWeight[3]', 'PSWeight[1]']) for skey in mc),
+    'samples' : dict((skey, ['PSWeight[3]', 'PSWeight[1]']) for skey in mc if skey not in ['WW', 'ggWW']),
     'AsLnN'   : '0',
 }
+
+nuisances['PS_ISR_WW_ACCEPT']  = {
+    'name'    : 'PS_ISR_WW_ACCEPT',
+    'skipCMS' : 1,
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : {
+        'WW'  : ['PSWeight[2]*NormTHU_WW_ps_isr_Up', 'PSWeight[0]*NormTHU_WW_ps_isr_Down'],
+        'ggWW'  : ['PSWeight[2]*NormTHU_ggWW_ps_isr_Up', 'PSWeight[0]*NormTHU_ggWW_ps_isr_Down'],
+    },
+    'AsLnN'   : '0',
+}
+nuisances['PS_FSR_WW_ACCEPT']  = {
+    'name'    : 'PS_FSR_WW_ACCEPT',
+    'skipCMS' : 1,
+    'kind'    : 'weight',
+    'type'    : 'shape',
+    'samples' : {
+        'WW'  : ['PSWeight[3]*NormTHU_WW_ps_fsr_Up', 'PSWeight[1]*NormTHU_WW_ps_fsr_Down'],
+        'ggWW'  : ['PSWeight[3]*NormTHU_ggWW_ps_fsr_Up', 'PSWeight[1]*NormTHU_ggWW_ps_fsr_Down'],
+    },
+    'AsLnN'   : '0',
+}
+
 
 # ###### pdf uncertainties : Float_t LHE pdf variation weights (w_var / w_nominal) for LHA IDs  320901 - 321000
 # pdf_variations = ["LHEPdfWeight[%d]" %i for i in range(1,101)] 
 
 
 ##### Renormalization & factorization scales
+nuisances['QCDscale_ggWW_ACCEPT'] = {
+    'name': 'QCDscale_ggWW_ACCEPT',
+    'skipCMS' : 1,
+    'type': 'lnN',
+    'samples': {'ggWW': '1.015'},
+}
+
+variations = ['Alt(LHEScaleWeight,0,1)*NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope0',
+              'Alt(LHEScaleWeight,1,1)*NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope1',
+              'Alt(LHEScaleWeight,3,1)*NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope2',
+              'Alt(LHEScaleWeight,nLHEScaleWeight-4,1)*NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope3',
+              'Alt(LHEScaleWeight,nLHEScaleWeight-2,1)*NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope4',
+              'Alt(LHEScaleWeight,nLHEScaleWeight-1,1)*NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope5']
+
+nuisances['QCDscale_WW_ACCEPT'] = {
+    'name' : 'QCDscale_WW_ACCEPT',
+    'skipCMS' : 1,
+    'kind' : 'weight_envelope',
+    'type' : 'shape',
+    'samples' : {'WW'  : variations}
+}
 
 variations = ['Alt(LHEScaleWeight,0,1)',
               'Alt(LHEScaleWeight,1,1)',
@@ -405,21 +450,6 @@ nuisances['QCDscale_DY_ACCEPT'] = {
     'kind'  : 'weight_envelope',
     'type': 'shape',
     'samples': {'DY': variations}
-}
-
-nuisances['QCDscale_WW_ACCEPT'] = {
-    'name' : 'QCDscale_WW_ACCEPT',
-    'skipCMS' : 1,
-    'kind' : 'weight_envelope',
-    'type' : 'shape',
-    'samples' : {'WW'  : variations}
-}
-
-nuisances['QCDscale_ggWW_ACCEPT'] = {
-    'name': 'QCDscale_ggWW_ACCEPT',
-    'skipCMS' : 1,
-    'type': 'lnN',
-    'samples': {'ggWW': '1.15'},
 }
 
 nuisances['QCDscale_WZ_ACCEPT'] = {

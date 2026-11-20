@@ -3,6 +3,7 @@ import copy
 import inspect
 import ROOT
 import json
+from collections import OrderedDict
 
 ROOT.gSystem.Load("libGpad.so")
 ROOT.gSystem.Load("libGraf.so")
@@ -12,15 +13,160 @@ macros = '/eos/user/m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/W
 fakerates = '/eos/user/m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/WW_Run3/FullRun3/utils/data/FakeRate/'
 btagmaps = '/eos/user/m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/WW_Run3/FullRun3/utils/data/btag/'
 extended='/eos/user/m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/WW_Run3/FullRun3/extended/'
-print(macros)
-print(fakerates)
-print(btagmaps)
-print(extended)
+theosys= '/eos/user/m/misharma/private/Latinos/HWWRun3/PlotsConfigurationsRun3/WW_Run3/FullRun3/utils/data/TheoUnc/2024/'
+
+if __name__ == "__main__":
+    print(macros)
+    print(fakerates)
+    print(btagmaps)
+    print(extended)
+    print(theosys)
 
 aliases = {}
 aliases = OrderedDict()
 
 mc     = [skey for skey in samples if skey not in ('Fake', 'DATA')]
+
+#Theoretical Uncertainties ReNormalized for WW and ggWW processes
+# Reads the NormTHU_2024_Inclusive.json file and creates aliases for each nuisance variation
+
+# NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope0 = 0.9870890882242206
+# NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope1 = 0.9750437294807749
+# NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope2 = 1.0147438633357182
+# NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope3 = 0.988735237122492
+# NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope4 = 1.0217943370385218
+# NormTHU_WW_QCDscale_WW_SPECIAL_NUIS_envelope5 = 1.0085715068826857
+# NormTHU_WW_ps_fsr_Up = 1.0009213302194109
+# NormTHU_WW_ps_fsr_Down = 0.9994558198690335
+# NormTHU_WW_ps_isr_Up = 1.0002177947415565
+# NormTHU_WW_ps_isr_Down = 0.9998419699616224
+# NormTHU_WW_QCDscale_WW_Up = 0.9750437294807749
+# NormTHU_WW_QCDscale_WW_Down = 1.0217943370385218
+# NormTHU_ggWW_ps_fsr_Up = 1.0009728206688808
+# NormTHU_ggWW_ps_fsr_Down = 0.9994739983484588
+# NormTHU_ggWW_ps_isr_Up = 1.0006840482137112
+# NormTHU_ggWW_ps_isr_Down = 0.999492611106157
+
+
+with open(theosys + 'NormTHU_2024_Inclusive.json', 'r') as f:
+    NormTHU = json.load(f)
+
+for sample in NormTHU.keys():
+
+    for varName, norm in NormTHU[sample].items():
+
+        # --- 1. Single float variations (Envelope nuisances) ---
+        if isinstance(norm, (int, float)):
+
+            val = norm
+
+            if abs(val) > 10 or abs(val) < 0.1:
+                val = 1.
+                NormTHU[sample][varName] = 1.
+                print(f"[WARNING] {varName} nuisance variation is faulty, set to 1.0")
+
+            alias_name = f'NormTHU_{sample}_{varName}'
+
+            aliases[alias_name] = {
+                'expr': str(val),
+                'samples': sample
+            }
+
+            print(f"{alias_name} = {val}")
+
+
+        # --- 2. Dictionary variations (Up/Down) ---
+        elif isinstance(norm, dict):
+
+            val_up = norm['Up']
+            val_down = norm['Down']
+
+            if abs(val_up) > 10 or abs(val_up) < 0.1:
+                val_up = 1.
+                print(f"[WARNING] {varName} Up variation is faulty, set to 1.0")
+
+            if abs(val_down) > 10 or abs(val_down) < 0.1:
+                val_down = 1.
+                print(f"[WARNING] {varName} Down variation is faulty, set to 1.0")
+
+            NormTHU[sample][varName]['Up'] = val_up
+            NormTHU[sample][varName]['Down'] = val_down
+
+            if 'pdf' not in varName.lower():
+
+                alias_up = f'NormTHU_{sample}_{varName}_Up'
+                alias_down = f'NormTHU_{sample}_{varName}_Down'
+
+                aliases[alias_up] = {
+                    'expr': str(val_up),
+                    'samples': sample
+                }
+
+                aliases[alias_down] = {
+                    'expr': str(val_down),
+                    'samples': sample
+                }
+
+                print(f"{alias_up} = {val_up}")
+                print(f"{alias_down} = {val_down}")
+
+            else:
+
+                alias_name = f'NormTHU_{sample}_{varName}'
+
+                aliases[alias_name] = {
+                    'expr': str(val_up),
+                    'samples': sample
+                }
+
+                print(f"{alias_name} = {val_up}")
+
+
+        # --- 3. Two-element list variations (Up/Down) ---
+        elif isinstance(norm, list) and len(norm) == 2:
+
+            val_up = norm[0]
+            val_down = norm[1]
+
+            if abs(val_up) > 10 or abs(val_up) < 0.1:
+                val_up = 1.
+                print(f"[WARNING] {varName} Up variation is faulty, set to 1.0")
+
+            if abs(val_down) > 10 or abs(val_down) < 0.1:
+                val_down = 1.
+                print(f"[WARNING] {varName} Down variation is faulty, set to 1.0")
+
+            NormTHU[sample][varName] = [val_up, val_down]
+
+            if 'pdf' not in varName.lower():
+
+                alias_up = f'NormTHU_{sample}_{varName}_Up'
+                alias_down = f'NormTHU_{sample}_{varName}_Down'
+
+                aliases[alias_up] = {
+                    'expr': str(val_up),
+                    'samples': sample
+                }
+
+                aliases[alias_down] = {
+                    'expr': str(val_down),
+                    'samples': sample
+                }
+
+                print(f"{alias_up} = {val_up}")
+                print(f"{alias_down} = {val_down}")
+
+            else:
+
+                alias_name = f'NormTHU_{sample}_{varName}'
+
+                aliases[alias_name] = {
+                    'expr': str(val_up),
+                    'samples': sample
+                }
+
+                print(f"{alias_name} = {val_up}")
+
 
 # LepSF2l__ele_cutBased_MediumID_tthMVA_Run3__mu_cut_TightID_pfIsoLoose_HWW_tthmva_67
 eleWP = 'cutBased_MediumID_tthMVA_Run3'

@@ -1,0 +1,32 @@
+{
+    "WW": {
+        "QCDscale_WW_SPECIAL_NUIS_envelope0": 0.9870890882242206,
+        "QCDscale_WW_SPECIAL_NUIS_envelope1": 0.9750437294807749,
+        "QCDscale_WW_SPECIAL_NUIS_envelope2": 1.0147438633357182,
+        "QCDscale_WW_SPECIAL_NUIS_envelope3": 0.988735237122492,
+        "QCDscale_WW_SPECIAL_NUIS_envelope4": 1.0217943370385218,
+        "QCDscale_WW_SPECIAL_NUIS_envelope5": 1.0085715068826857,
+        "ps_fsr": {
+            "Down": 0.9994558198690335,
+            "Up": 1.0009213302194109
+        },
+        "ps_isr": {
+            "Down": 0.9998419699616224,
+            "Up": 1.0002177947415565
+        },
+        "QCDscale_WW": {
+            "Up": 0.9750437294807749,
+            "Down": 1.0217943370385218
+        }
+    },
+    "ggWW": {
+        "ps_fsr": {
+            "Down": 0.9994739983484588,
+            "Up": 1.0009728206688808
+        },
+        "ps_isr": {
+            "Down": 0.999492611106157,
+            "Up": 1.0006840482137112
+        }
+    }
+}
